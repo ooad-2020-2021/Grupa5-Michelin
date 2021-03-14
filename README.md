@@ -13,4 +13,5 @@
 ###### Neregistrovani korisnik:
 ###### Registrovani korisnik:
 ###### Administrator:
+* Mogućnost pregleda svih registrovanih korisnika
 ###### Vrijeme:
