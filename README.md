@@ -12,19 +12,18 @@
 
 ###### Neregistrovani korisnik:
 * Ima mogućnost registracije i kreiranje novog korisničkog računa
-* Može pregledati recepte
-* Pretraživanje recepata uz razne filtere
+* Može pregledati i pretraživati recepte koristeći različite filtere
 
 ###### Registrovani korisnik:
 * Ima sve mogućnosti kao i neregistrovani korisnik
-* Uređivanje korisničkog računa
-* Dodavanje sopstvenih recepata
-* Ocjenjivanje tuđih recepata
-* Komentarisanje recepata
+* Može uređivati korisnički račun
+* Može dodavati vlastite recepte
+* Ima opciju ocjenjivanja tuđih recepata
+* Ima mogućnost komentarisanja recepata drugih korisnika
 
 ###### Administrator:
-* Mogućnost pregleda svih registrovanih korisnika
-* Brisanje korisnika po potrebi
+* Ima mogućnost pregleda svih registrovanih korisnika
+* Posjeduje mogućnost brisanja korisničkog računa
 
 ###### Vrijeme:
 * Ažuriranje kateogrije najboljih recepata
