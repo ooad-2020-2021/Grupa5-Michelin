@@ -9,10 +9,22 @@
 ## Opis teme:
 
 ## Funkcionalnosti:
+
 ###### Neregistrovani korisnik:
+* Ima mogućnost registracije i kreiranje novog korisničkog računa
+* Može pregledati recepte
+* Pretraživanje recepata uz razne filtere
+
 ###### Registrovani korisnik:
+* Ima sve mogućnosti kao i neregistrovani korisnik
+* Dodavanje sopstvenih recepata
+* Ocjenjivanje tuđih recepata
+* Komentarisanje recepata
+* Uređivanje korisničkog računa
+
 ###### Administrator:
 * Mogućnost pregleda svih registrovanih korisnika
+* Brisanje korisnika po potrebi
 ###### Vrijeme:
 
 ## Akteri:
