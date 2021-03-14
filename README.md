@@ -7,6 +7,7 @@
 
 
 ## Opis teme:
+Michelin je aplikacija za razmjenu recepata za kuhanje. Aplikacija omogućava svim korisnicima da pretraže bazu recepata u skladu sa vlastitim interesima, korisnicima koji imaju više iskustva u kuhanju nudi mogućnost razmjene iskustava kroz postavljanje pitanja, davanja komentara, sugestija itd. Cilj aplikacije je olakšati svakodnevnu pripremu obroka svim korisnicima koji nemaju dovoljno znanja u kuhanju, a stručnjacima omogućiti razmjenu mišljenja. Od niza različitih mogućnosti pretrage izdvajamo opciju da korisnici mogu izvršiti pretragu po vremenu potrebnom za pripremu hrane.
 
 ## Funkcionalnosti:
 
@@ -20,10 +21,12 @@
 * Može dodavati vlastite recepte
 * Ima opciju ocjenjivanja tuđih recepata
 * Ima mogućnost komentarisanja recepata drugih korisnika
+* Ima mogućnost dodavanja i pregleda video materijala
 
 ###### Administrator:
 * Ima mogućnost pregleda svih registrovanih korisnika
 * Posjeduje mogućnost brisanja korisničkog računa
+* Pruža pomoć korisnicima
 
 ###### Vrijeme:
 * Ažuriranje kateogrije najboljih recepata
