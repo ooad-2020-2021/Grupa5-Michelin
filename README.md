@@ -1,4 +1,5 @@
-# Michelin - Aplikacija za razmjenu kulinarskih recepata
+# Michelin
+## Tema: Recepti za kuhanje
 
 ## Članovi tima:
 * [Rijad Burović](https://github.com/Rilenze)
