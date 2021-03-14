@@ -17,15 +17,17 @@
 
 ###### Registrovani korisnik:
 * Ima sve mogućnosti kao i neregistrovani korisnik
+* Uređivanje korisničkog računa
 * Dodavanje sopstvenih recepata
 * Ocjenjivanje tuđih recepata
 * Komentarisanje recepata
-* Uređivanje korisničkog računa
 
 ###### Administrator:
 * Mogućnost pregleda svih registrovanih korisnika
 * Brisanje korisnika po potrebi
+
 ###### Vrijeme:
+* Ažuriranje kateogrije najboljih recepata
 
 ## Akteri:
 * Neregistrovani korisnik
