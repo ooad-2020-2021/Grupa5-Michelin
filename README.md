@@ -8,10 +8,15 @@
 
 ## Opis teme:
 
-
 ## Funkcionalnosti:
 ###### Neregistrovani korisnik:
 ###### Registrovani korisnik:
 ###### Administrator:
 * Mogućnost pregleda svih registrovanih korisnika
 ###### Vrijeme:
+
+## Akteri:
+* Neregistrovani korisnik
+* Registrovani korisnik
+* Administrator
+* Vrijeme
