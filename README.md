@@ -10,7 +10,7 @@
 
 
 ## Funkcionalnosti:
-### Neregistrovani korisnik:
-### Registrovani korisnik:
-### Administrator:
-### Vrijeme:
+###### Neregistrovani korisnik:
+###### Registrovani korisnik:
+###### Administrator:
+###### Vrijeme:
