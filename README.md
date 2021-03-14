@@ -6,8 +6,11 @@
 * [Amila Hadžibajramović](https://github.com/ahadzibajr1)
 
 
-## Akteri:
-* Neregistrovani korisnik
-* Registrovani korisnik
-* Administrator
-* Vrijeme
+## Opis teme:
+
+
+## Funkcionalnosti:
+### Neregistrovani korisnik:
+### Registrovani korisnik:
+### Administrator:
+### Vrijeme:
