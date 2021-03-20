@@ -8,32 +8,33 @@
 
 
 ## Opis teme:
-Michelin je aplikacija za razmjenu recepata za kuhanje. Aplikacija omogućava svim korisnicima da pretraže bazu recepata u skladu sa vlastitim interesima, korisnicima koji imaju više iskustva u kuhanju nudi mogućnost razmjene iskustava kroz postavljanje pitanja, davanja komentara, sugestija itd. Cilj aplikacije je olakšati svakodnevnu pripremu obroka svim korisnicima koji nemaju dovoljno znanja u kuhanju, a stručnjacima omogućiti razmjenu mišljenja. Od niza različitih mogućnosti pretrage izdvajamo opciju da korisnici mogu izvršiti pretragu po vremenu potrebnom za pripremu hrane.
+Michelin je aplikacija za razmjenu recepata za kuhanje. Aplikacija omogućava svim korisnicima da pretraže bazu recepata u skladu sa vlastitim interesima. Privilegija pristupa samim receptima, što uključuje količine sastojaka potrebnih za pripremu i način same pripreme, data je samo registrovanim korisnicima koji plaćaju mjesečnu članarinu u iznosu od 1.99 KM. Registrovani korisnici dobijaju i svoj vlastiti profil na kojem su prikazani njihovi vlastiti recepti zajedno sa odabranom slikom i kratkom biografijom. Osim toga, mogu da ocjenjuju druge recepte i ostavljaju komentare, a svakog mjeseca korisnik sa najbolje ocjenjenim receptom dobija besplatan mjesec članstva. Cilj aplikacije je olakšati svakodnevnu pripremu obroka svim korisnicima koji nemaju dovoljno znanja u kuhanju, a stručnjacima omogućiti razmjenu mišljenja. Od niza različitih mogućnosti pretrage izdvajamo opciju da korisnici mogu izvršiti pretragu po vremenu potrebnom za pripremu hrane.
 
 ## Funkcionalnosti:
 
 ###### Neregistrovani korisnik:
 * Ima mogućnost registracije i kreiranje novog korisničkog računa
-* Može pregledati i pretraživati recepte koristeći različite filtere
+* Može pretraživati recepte koristeći različite filtere
 
-###### Registrovani korisnik:
+###### Registrovani korisnik (plaća mjesečnu članarinu):
 * Ima sve mogućnosti kao i neregistrovani korisnik
-* Može uređivati korisnički račun
+* Ima pristup receptima (može vidjeti način pripreme)
+* Može uređivati korisnički račun što uključuje promjenu slike, korisničkog imena i biografije
 * Može dodavati vlastite recepte
 * Ima opciju ocjenjivanja tuđih recepata
 * Ima mogućnost komentarisanja recepata drugih korisnika
 * Ima mogućnost dodavanja i pregleda video materijala
+* Ima mogućnost prijave problema (prijava korisnika ili prijava tehničkog problema) administratoru
 
 ###### Administrator:
 * Ima mogućnost pregleda svih registrovanih korisnika
 * Posjeduje mogućnost brisanja korisničkog računa
-* Pruža pomoć korisnicima
+* Može odgovoriti na zahtjeve za pomoć (prijave problema) korisnika
+* Ažuriranje kategorije najboljih recepata
 
-###### Vrijeme:
-* Ažuriranje kateogrije najboljih recepata
 
 ## Akteri:
 * Neregistrovani korisnik
 * Registrovani korisnik
 * Administrator
-* Vrijeme
+
