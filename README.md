@@ -1,6 +1,8 @@
 # Michelin
 ## Tema: Recepti za kuhanje
 
+![myimage-alt-tag](https://github.com/ooad-2020-2021/Grupa5-Michelin/blob/main/Logo/logo-v2.PNG?raw=true)
+
 ## Članovi tima:
 * [Rijad Burović](https://github.com/Rilenze)
 * [Adna Mehanović](https://github.com/amehanovic2)
