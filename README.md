@@ -15,16 +15,18 @@ Michelin je aplikacija za razmjenu recepata za kuhanje. Aplikacija omogućava sv
 ###### Neregistrovani korisnik:
 * Ima mogućnost registracije i kreiranje novog korisničkog računa
 * Može pretraživati recepte koristeći različite filtere
+* Može otvoriti 10 trenutno najboljih recepata, za pristup ostalim potrebna registracija
 
 ###### Registrovani korisnik (plaća mjesečnu članarinu):
 * Ima sve mogućnosti kao i neregistrovani korisnik
-* Ima pristup receptima (može vidjeti način pripreme)
+* Ima pristup svim receptima (može vidjeti način pripreme)
 * Može uređivati korisnički račun što uključuje promjenu slike, korisničkog imena i biografije
 * Može dodavati vlastite recepte
 * Ima opciju ocjenjivanja tuđih recepata
 * Ima mogućnost komentarisanja recepata drugih korisnika
 * Ima mogućnost dodavanja i pregleda video materijala
 * Ima mogućnost prijave problema (prijava korisnika ili prijava tehničkog problema) administratoru
+* Mogućnost primanja notifikacija na mobilni uređaj
 
 ###### Administrator:
 * Ima mogućnost pregleda svih registrovanih korisnika
