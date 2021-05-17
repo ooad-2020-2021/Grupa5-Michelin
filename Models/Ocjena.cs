@@ -1,17 +1,31 @@
 ﻿using System;
+using System.ComponentModel.DataAnnotations;
 
-/// <summary>
-/// Summary description for Class1
-/// </summary>
-public class Class1
+namespace Michelin.Models
 {
-	public Ocjena()
+	public class Ocjena
 	{
-		//
-		// TODO: Add constructor logic here
-		//
-		public Korisnik korisnik { get; set; }
+        #region Properties
+
+        [Required]
+        public Korisnik korisnik { get; set; }
+
+        [Required]
 		public Recept recept { get; set; }
+
+        [Required]
+        [Range(1,5)]
 		public double vrijednost { get; set; }
-	}
+
+        #endregion
+
+        #region Constructor
+        public Ocjena (Korisnik autor, Recept recept, double vrijednost)
+        {
+            korisnik = autor;
+            this.recept = recept;
+            this.vrijednost = vrijednost;
+        }
+        #endregion
+    }
 }

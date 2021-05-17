@@ -1,18 +1,32 @@
 ﻿using System;
+using System.ComponentModel.DataAnnotations;
 
-/// <summary>
-/// Summary description for Class1
-/// </summary>
-public class Class1
+namespace Michelin.Models
 {
-	public Komentar()
+	public  class Komentar
 	{
-		//
-		// TODO: Add constructor logic here
-		//
+        #region Properties
+        [Required]
+		[StringLength(maximumLength:300, MinimumLength =5, ErrorMessage ="Komentar mora biti duži od 5 karaktera i kraći od 300!")]
 		public String sadrzaj { get; set; }
+
+		[Required]
 		public Korisnik autor { get; set; }
+
+		[Required]
 		public Recept recept { get; set; }
 		public DateTime datum { get; set; }
-	}
+
+        #endregion
+
+        #region Constructor
+		public Komentar(string sadrzaj, Korisnik autor, Recept recept)
+        {
+			this.sadrzaj = sadrzaj;
+			this.autor = autor;
+			this.recept = recept;
+			datum = DateTime.Now;
+        }
+        #endregion
+    }
 }

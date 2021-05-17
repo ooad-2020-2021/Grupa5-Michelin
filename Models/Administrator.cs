@@ -1,17 +1,30 @@
 ﻿using System;
-using System.Collections;
+using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations.Schema;
+using System.ComponentModel.DataAnnotations;
 
-/// <summary>
-/// Summary description for Class1
-/// </summary>
-public class Class1
+
+namespace Michelin.Models
 {
-	public Administrator()
+	public class Administrator
 	{
-		//
-		// TODO: Add constructor logic here
-		//
-		public String emailAdresa { get; set; }
+        #region Properties
+
+        [Required]
+        [Key]
+        public String emailAdresa { get; set; }
+
+        [NotMapped]
 		public List<ZahtjevZaPomoc> zahtjeviZaPomoc { get; set; }
-	}
+
+        #endregion
+
+        #region Constructor
+        public Administrator(string email)
+        {
+            emailAdresa = email;
+            zahtjeviZaPomoc = new List<ZahtjevZaPomoc>();
+        }
+        #endregion
+    }
 }
