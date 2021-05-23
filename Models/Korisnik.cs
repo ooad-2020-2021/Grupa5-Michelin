@@ -50,7 +50,7 @@ namespace Michelin.Models
 		public Boolean aktivan { get; set; }
 
 		
-		public String omiljeniRecepti { get; set; }
+		public string omiljeniRecepti { get; set; }
 
         #endregion
 

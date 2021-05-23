@@ -37,6 +37,8 @@ namespace Michelin.Models
 		[Required]
 		public Boolean obradjeno { get; set; }
 
+		public Administrator administrator { get; set; }
+
         #endregion
 
         #region Constructor

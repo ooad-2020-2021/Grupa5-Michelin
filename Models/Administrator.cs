@@ -13,8 +13,7 @@ namespace Michelin.Models
         [Key]
         public string emailAdresa { get; set; }
 
-        
-		public string zahtjeviZaPomoc { get; set; }
+ 
 
         #endregion
 
@@ -22,15 +21,10 @@ namespace Michelin.Models
         public Administrator(string email)
         {
             emailAdresa = email;
-            zahtjeviZaPomoc = new string("");
+            
         }
         #endregion
 
-        public List<ZahtjevZaPomoc> pretvoriStringUListu()
-        {
-            List<ZahtjevZaPomoc> zahtjevi = new List<ZahtjevZaPomoc>();
-            //dohvatiti zahtjeve iz baze kojima odgovaraju primarni kljucevi iz stringa
-            return zahtjevi;
-        }
+       
     }
 }
