@@ -66,6 +66,9 @@ namespace Michelin.Models
 		public VrstaJela vrstaJela { get; set; }
 
 		[Required]
+		public Boolean vegansko { get; set; }
+
+		[Required]
 		public Korisnik autor { get; set; }
 
 		[Required]
