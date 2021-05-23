@@ -66,6 +66,9 @@ namespace Michelin.Models
 		public VrstaJela vrstaJela { get; set; }
 
 		[Required]
+		public Boolean vegansko { get; set; }
+
+		[Required]
 		public Korisnik autor { get; set; }
 
 		[Required]
@@ -78,12 +81,13 @@ namespace Michelin.Models
 
         #region Constructor
 		public Recept(string naziv, int vrijemePripreme, NacionalnoJelo nacionalnoJelo,
-			VrstaJela vrsta, Korisnik autor, NacinPripreme nacinPripreme)
+			VrstaJela vrsta, Boolean vegansko, Korisnik autor, NacinPripreme nacinPripreme)
         {
 			this.naziv = naziv;
 			this.vrijemePripreme = vrijemePripreme;
 			this.nacionalnoJelo = nacionalnoJelo;
 			this.vrstaJela = vrsta;
+			this.vegansko = vegansko;
 			this.autor = autor;
 			this.nacinPripreme = nacinPripreme;
 			datum = DateTime.Now;
