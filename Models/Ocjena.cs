@@ -7,6 +7,10 @@ namespace Michelin.Models
 	{
         #region Properties
 
+        [Key]
+        [Required]
+        public string id { get; set; }
+
         [Required]
         public Korisnik korisnik { get; set; }
 

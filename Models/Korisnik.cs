@@ -16,38 +16,41 @@ namespace Michelin.Models
 		[Required]
 		[StringLength(maximumLength:30, MinimumLength =3, ErrorMessage ="Korisničko ime se mora sastojati od najmanje 3 i" +
 			"najviše 30 karaktera!")]
-		public String korisnickoIme { get; set; }
+		public string korisnickoIme { get; set; }
 
 		[Required]
 		[RegularExpression(@"[A-Z|a-z| ]*", ErrorMessage ="Dozvoljavaju se imena koja se sastoje isključivo od slova!")]
-		public String ime { get; set; }
+		public string ime { get; set; }
 
 		[Required]
 		[RegularExpression(@"[A-Z|a-z| ]*", ErrorMessage = "Dozvoljavaju se prezimena koja se sastoje isključivo od slova!")]
-		public String prezime { get; set; }
+		public string prezime { get; set; }
 
 		[Required]
-		public String emailAdresa { get; set; }
+		public string emailAdresa { get; set; }
 
 		[RegularExpression(@"[0-9]*", ErrorMessage = "Dozvoljeni su samo brojevi bez razmaka!")]
-		public String brojMobitela { get; set; }
+		public string brojMobitela { get; set; }
 
 		[StringLength(maximumLength: 400, MinimumLength = 0, ErrorMessage = "Biografija ne smije biti duža od 400 karaktera!")]
-		public String kratkaBiografija { get; set; }
+		public string kratkaBiografija { get; set; }
 
 		[Required]
 		[RegularExpression(@"[0-9]*", ErrorMessage = "Dozvoljeni su samo brojevi bez razmaka!")]
-		public String brojKreditneKartice { get; set; }
+		public string brojKreditneKartice { get; set; }
 
 		[Required]
+		[DataType(DataType.Date)]
 		public DateTime datumAktivacije { get; set; }
+
+		[DataType(DataType.Date)]
 		public DateTime datumDeaktivacije { get; set; }
 
 		[Required]
 		public Boolean aktivan { get; set; }
 
-		[NotMapped]
-		public List<Recept> omiljeniRecepti { get; set; }
+		
+		public String omiljeniRecepti { get; set; }
 
         #endregion
 
@@ -66,6 +69,14 @@ namespace Michelin.Models
 		}
 
         #endregion
+
+		public List<Recept> pretvoriStringUListu()
+        {
+			List<Recept> omiljeni = new List<Recept>();
+			//dohvatiti recepte iz baze kojima odgovaraju primarni kljucevi u stringu
+
+			return omiljeni;
+        }
     }
 }
 

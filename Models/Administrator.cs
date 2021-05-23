@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations.Schema;
 using System.ComponentModel.DataAnnotations;
 
 
@@ -12,10 +11,10 @@ namespace Michelin.Models
 
         [Required]
         [Key]
-        public String emailAdresa { get; set; }
+        public string emailAdresa { get; set; }
 
-        [NotMapped]
-		public List<ZahtjevZaPomoc> zahtjeviZaPomoc { get; set; }
+        
+		public string zahtjeviZaPomoc { get; set; }
 
         #endregion
 
@@ -23,8 +22,15 @@ namespace Michelin.Models
         public Administrator(string email)
         {
             emailAdresa = email;
-            zahtjeviZaPomoc = new List<ZahtjevZaPomoc>();
+            zahtjeviZaPomoc = new string("");
         }
         #endregion
+
+        public List<ZahtjevZaPomoc> pretvoriStringUListu()
+        {
+            List<ZahtjevZaPomoc> zahtjevi = new List<ZahtjevZaPomoc>();
+            //dohvatiti zahtjeve iz baze kojima odgovaraju primarni kljucevi iz stringa
+            return zahtjevi;
+        }
     }
 }

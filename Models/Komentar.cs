@@ -6,15 +6,22 @@ namespace Michelin.Models
 	public  class Komentar
 	{
         #region Properties
+
+		[Key]
+		[Required]
+		public string id { get; set; }
+
         [Required]
 		[StringLength(maximumLength:300, MinimumLength =5, ErrorMessage ="Komentar mora biti duži od 5 karaktera i kraći od 300!")]
-		public String sadrzaj { get; set; }
+		public string sadrzaj { get; set; }
 
 		[Required]
 		public Korisnik autor { get; set; }
 
 		[Required]
 		public Recept recept { get; set; }
+
+		[DataType(DataType.Date)]
 		public DateTime datum { get; set; }
 
         #endregion
@@ -25,6 +32,7 @@ namespace Michelin.Models
 			this.sadrzaj = sadrzaj;
 			this.autor = autor;
 			this.recept = recept;
+			//id = generirajId();
 			datum = DateTime.Now;
         }
         #endregion
