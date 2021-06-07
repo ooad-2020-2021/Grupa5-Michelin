@@ -4,7 +4,7 @@ using MySql.Data.EntityFrameworkCore.Metadata;
 
 namespace Michelin.Migrations
 {
-    public partial class PrvaMigracija : Migration
+    public partial class Initial : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -34,7 +34,7 @@ namespace Michelin.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "AspNetUsers",
+                name: "Korisnik",
                 columns: table => new
                 {
                     Id = table.Column<string>(nullable: false),
@@ -51,24 +51,12 @@ namespace Michelin.Migrations
                     TwoFactorEnabled = table.Column<bool>(nullable: false),
                     LockoutEnd = table.Column<DateTimeOffset>(nullable: true),
                     LockoutEnabled = table.Column<bool>(nullable: false),
-                    AccessFailedCount = table.Column<int>(nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_AspNetUsers", x => x.Id);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "Korisnik",
-                columns: table => new
-                {
+                    AccessFailedCount = table.Column<int>(nullable: false),
                     korisnickoIme = table.Column<string>(maxLength: 30, nullable: false),
                     ime = table.Column<string>(nullable: false),
                     prezime = table.Column<string>(nullable: false),
-                    emailAdresa = table.Column<string>(nullable: false),
                     brojMobitela = table.Column<string>(nullable: true),
                     kratkaBiografija = table.Column<string>(maxLength: 400, nullable: true),
-                    brojKreditneKartice = table.Column<string>(nullable: false),
                     datumAktivacije = table.Column<DateTime>(nullable: false),
                     datumDeaktivacije = table.Column<DateTime>(nullable: false),
                     aktivan = table.Column<bool>(nullable: false),
@@ -76,7 +64,7 @@ namespace Michelin.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Korisnik", x => x.korisnickoIme);
+                    table.PrimaryKey("PK_Korisnik", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -141,9 +129,9 @@ namespace Michelin.Migrations
                 {
                     table.PrimaryKey("PK_AspNetUserClaims", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_AspNetUserClaims_AspNetUsers_UserId",
+                        name: "FK_AspNetUserClaims_Korisnik_UserId",
                         column: x => x.UserId,
-                        principalTable: "AspNetUsers",
+                        principalTable: "Korisnik",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
@@ -152,8 +140,8 @@ namespace Michelin.Migrations
                 name: "AspNetUserLogins",
                 columns: table => new
                 {
-                    LoginProvider = table.Column<string>(maxLength: 128, nullable: false),
-                    ProviderKey = table.Column<string>(maxLength: 128, nullable: false),
+                    LoginProvider = table.Column<string>(nullable: false),
+                    ProviderKey = table.Column<string>(nullable: false),
                     ProviderDisplayName = table.Column<string>(nullable: true),
                     UserId = table.Column<string>(nullable: false)
                 },
@@ -161,9 +149,9 @@ namespace Michelin.Migrations
                 {
                     table.PrimaryKey("PK_AspNetUserLogins", x => new { x.LoginProvider, x.ProviderKey });
                     table.ForeignKey(
-                        name: "FK_AspNetUserLogins_AspNetUsers_UserId",
+                        name: "FK_AspNetUserLogins_Korisnik_UserId",
                         column: x => x.UserId,
-                        principalTable: "AspNetUsers",
+                        principalTable: "Korisnik",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
@@ -185,9 +173,9 @@ namespace Michelin.Migrations
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_AspNetUserRoles_AspNetUsers_UserId",
+                        name: "FK_AspNetUserRoles_Korisnik_UserId",
                         column: x => x.UserId,
-                        principalTable: "AspNetUsers",
+                        principalTable: "Korisnik",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
@@ -197,17 +185,17 @@ namespace Michelin.Migrations
                 columns: table => new
                 {
                     UserId = table.Column<string>(nullable: false),
-                    LoginProvider = table.Column<string>(maxLength: 128, nullable: false),
-                    Name = table.Column<string>(maxLength: 128, nullable: false),
+                    LoginProvider = table.Column<string>(nullable: false),
+                    Name = table.Column<string>(nullable: false),
                     Value = table.Column<string>(nullable: true)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_AspNetUserTokens", x => new { x.UserId, x.LoginProvider, x.Name });
                     table.ForeignKey(
-                        name: "FK_AspNetUserTokens_AspNetUsers_UserId",
+                        name: "FK_AspNetUserTokens_Korisnik_UserId",
                         column: x => x.UserId,
-                        principalTable: "AspNetUsers",
+                        principalTable: "Korisnik",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
@@ -219,7 +207,7 @@ namespace Michelin.Migrations
                     id = table.Column<string>(nullable: false),
                     kategorija = table.Column<int>(nullable: false),
                     sadrzaj = table.Column<string>(maxLength: 1000, nullable: false),
-                    korisnikkorisnickoIme = table.Column<string>(nullable: false),
+                    korisnikId = table.Column<string>(nullable: false),
                     obradjeno = table.Column<bool>(nullable: false),
                     administratoremailAdresa = table.Column<string>(nullable: true)
                 },
@@ -233,10 +221,10 @@ namespace Michelin.Migrations
                         principalColumn: "emailAdresa",
                         onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
-                        name: "FK_ZahtjevZaPomoc_Korisnik_korisnikkorisnickoIme",
-                        column: x => x.korisnikkorisnickoIme,
+                        name: "FK_ZahtjevZaPomoc_Korisnik_korisnikId",
+                        column: x => x.korisnikId,
                         principalTable: "Korisnik",
-                        principalColumn: "korisnickoIme",
+                        principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
 
@@ -250,7 +238,7 @@ namespace Michelin.Migrations
                     nacionalnoJelo = table.Column<int>(nullable: false),
                     vrstaJela = table.Column<int>(nullable: false),
                     vegansko = table.Column<bool>(nullable: false),
-                    autorkorisnickoIme = table.Column<string>(nullable: false),
+                    autorId = table.Column<string>(nullable: false),
                     nacinPripremeid = table.Column<string>(nullable: false),
                     datum = table.Column<DateTime>(nullable: false)
                 },
@@ -258,10 +246,10 @@ namespace Michelin.Migrations
                 {
                     table.PrimaryKey("PK_Recept", x => x.id);
                     table.ForeignKey(
-                        name: "FK_Recept_Korisnik_autorkorisnickoIme",
-                        column: x => x.autorkorisnickoIme,
+                        name: "FK_Recept_Korisnik_autorId",
+                        column: x => x.autorId,
                         principalTable: "Korisnik",
-                        principalColumn: "korisnickoIme",
+                        principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
                         name: "FK_Recept_Nacin Pripreme_nacinPripremeid",
@@ -277,7 +265,7 @@ namespace Michelin.Migrations
                 {
                     id = table.Column<string>(nullable: false),
                     sadrzaj = table.Column<string>(maxLength: 300, nullable: false),
-                    autorkorisnickoIme = table.Column<string>(nullable: false),
+                    autorId = table.Column<string>(nullable: false),
                     receptid = table.Column<string>(nullable: false),
                     datum = table.Column<DateTime>(nullable: false)
                 },
@@ -285,10 +273,10 @@ namespace Michelin.Migrations
                 {
                     table.PrimaryKey("PK_Komentar", x => x.id);
                     table.ForeignKey(
-                        name: "FK_Komentar_Korisnik_autorkorisnickoIme",
-                        column: x => x.autorkorisnickoIme,
+                        name: "FK_Komentar_Korisnik_autorId",
+                        column: x => x.autorId,
                         principalTable: "Korisnik",
-                        principalColumn: "korisnickoIme",
+                        principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
                         name: "FK_Komentar_Recept_receptid",
@@ -303,7 +291,7 @@ namespace Michelin.Migrations
                 columns: table => new
                 {
                     id = table.Column<string>(nullable: false),
-                    korisnikkorisnickoIme = table.Column<string>(nullable: false),
+                    korisnikId = table.Column<string>(nullable: false),
                     receptid = table.Column<string>(nullable: false),
                     vrijednost = table.Column<double>(nullable: false)
                 },
@@ -311,10 +299,10 @@ namespace Michelin.Migrations
                 {
                     table.PrimaryKey("PK_Ocjena", x => x.id);
                     table.ForeignKey(
-                        name: "FK_Ocjena_Korisnik_korisnikkorisnickoIme",
-                        column: x => x.korisnikkorisnickoIme,
+                        name: "FK_Ocjena_Korisnik_korisnikId",
+                        column: x => x.korisnikId,
                         principalTable: "Korisnik",
-                        principalColumn: "korisnickoIme",
+                        principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
                         name: "FK_Ocjena_Recept_receptid",
@@ -351,20 +339,9 @@ namespace Michelin.Migrations
                 column: "RoleId");
 
             migrationBuilder.CreateIndex(
-                name: "EmailIndex",
-                table: "AspNetUsers",
-                column: "NormalizedEmail");
-
-            migrationBuilder.CreateIndex(
-                name: "UserNameIndex",
-                table: "AspNetUsers",
-                column: "NormalizedUserName",
-                unique: true);
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Komentar_autorkorisnickoIme",
+                name: "IX_Komentar_autorId",
                 table: "Komentar",
-                column: "autorkorisnickoIme");
+                column: "autorId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Komentar_receptid",
@@ -372,9 +349,20 @@ namespace Michelin.Migrations
                 column: "receptid");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Ocjena_korisnikkorisnickoIme",
+                name: "EmailIndex",
+                table: "Korisnik",
+                column: "NormalizedEmail");
+
+            migrationBuilder.CreateIndex(
+                name: "UserNameIndex",
+                table: "Korisnik",
+                column: "NormalizedUserName",
+                unique: true);
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Ocjena_korisnikId",
                 table: "Ocjena",
-                column: "korisnikkorisnickoIme");
+                column: "korisnikId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Ocjena_receptid",
@@ -382,9 +370,9 @@ namespace Michelin.Migrations
                 column: "receptid");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Recept_autorkorisnickoIme",
+                name: "IX_Recept_autorId",
                 table: "Recept",
-                column: "autorkorisnickoIme");
+                column: "autorId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Recept_nacinPripremeid",
@@ -397,9 +385,9 @@ namespace Michelin.Migrations
                 column: "administratoremailAdresa");
 
             migrationBuilder.CreateIndex(
-                name: "IX_ZahtjevZaPomoc_korisnikkorisnickoIme",
+                name: "IX_ZahtjevZaPomoc_korisnikId",
                 table: "ZahtjevZaPomoc",
-                column: "korisnikkorisnickoIme");
+                column: "korisnikId");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
@@ -433,9 +421,6 @@ namespace Michelin.Migrations
 
             migrationBuilder.DropTable(
                 name: "AspNetRoles");
-
-            migrationBuilder.DropTable(
-                name: "AspNetUsers");
 
             migrationBuilder.DropTable(
                 name: "Recept");

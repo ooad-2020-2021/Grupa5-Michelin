@@ -5,9 +5,10 @@ using System.Collections.Generic;
 using System.Text;
 using Michelin.Models;
 
+
 namespace Michelin.Data
 {
-    public class ApplicationDbContext : IdentityDbContext
+    public class ApplicationDbContext : IdentityDbContext<Korisnik>
     {
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options)
             : base(options)

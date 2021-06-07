@@ -32,9 +32,9 @@ namespace Michelin.Migrations
                     b.Property<string>("id")
                         .HasColumnType("varchar(767)");
 
-                    b.Property<string>("autorkorisnickoIme")
+                    b.Property<string>("autorId")
                         .IsRequired()
-                        .HasColumnType("varchar(30)");
+                        .HasColumnType("varchar(767)");
 
                     b.Property<DateTime>("datum")
                         .HasColumnType("datetime");
@@ -50,7 +50,7 @@ namespace Michelin.Migrations
 
                     b.HasKey("id");
 
-                    b.HasIndex("autorkorisnickoIme");
+                    b.HasIndex("autorId");
 
                     b.HasIndex("receptid");
 
@@ -59,16 +59,58 @@ namespace Michelin.Migrations
 
             modelBuilder.Entity("Michelin.Models.Korisnik", b =>
                 {
-                    b.Property<string>("korisnickoIme")
-                        .HasColumnType("varchar(30)")
-                        .HasMaxLength(30);
+                    b.Property<string>("Id")
+                        .HasColumnType("varchar(767)");
+
+                    b.Property<int>("AccessFailedCount")
+                        .HasColumnType("int");
+
+                    b.Property<string>("ConcurrencyStamp")
+                        .IsConcurrencyToken()
+                        .HasColumnType("text");
+
+                    b.Property<string>("Email")
+                        .HasColumnType("varchar(256)")
+                        .HasMaxLength(256);
+
+                    b.Property<bool>("EmailConfirmed")
+                        .HasColumnType("tinyint(1)");
+
+                    b.Property<bool>("LockoutEnabled")
+                        .HasColumnType("tinyint(1)");
+
+                    b.Property<DateTimeOffset?>("LockoutEnd")
+                        .HasColumnType("timestamp");
+
+                    b.Property<string>("NormalizedEmail")
+                        .HasColumnType("varchar(256)")
+                        .HasMaxLength(256);
+
+                    b.Property<string>("NormalizedUserName")
+                        .HasColumnType("varchar(256)")
+                        .HasMaxLength(256);
+
+                    b.Property<string>("PasswordHash")
+                        .HasColumnType("text");
+
+                    b.Property<string>("PhoneNumber")
+                        .HasColumnType("text");
+
+                    b.Property<bool>("PhoneNumberConfirmed")
+                        .HasColumnType("tinyint(1)");
+
+                    b.Property<string>("SecurityStamp")
+                        .HasColumnType("text");
+
+                    b.Property<bool>("TwoFactorEnabled")
+                        .HasColumnType("tinyint(1)");
+
+                    b.Property<string>("UserName")
+                        .HasColumnType("varchar(256)")
+                        .HasMaxLength(256);
 
                     b.Property<bool>("aktivan")
                         .HasColumnType("tinyint(1)");
-
-                    b.Property<string>("brojKreditneKartice")
-                        .IsRequired()
-                        .HasColumnType("text");
 
                     b.Property<string>("brojMobitela")
                         .HasColumnType("text");
@@ -79,13 +121,14 @@ namespace Michelin.Migrations
                     b.Property<DateTime>("datumDeaktivacije")
                         .HasColumnType("datetime");
 
-                    b.Property<string>("emailAdresa")
-                        .IsRequired()
-                        .HasColumnType("text");
-
                     b.Property<string>("ime")
                         .IsRequired()
                         .HasColumnType("text");
+
+                    b.Property<string>("korisnickoIme")
+                        .IsRequired()
+                        .HasColumnType("varchar(30)")
+                        .HasMaxLength(30);
 
                     b.Property<string>("kratkaBiografija")
                         .HasColumnType("varchar(400)")
@@ -98,7 +141,14 @@ namespace Michelin.Migrations
                         .IsRequired()
                         .HasColumnType("text");
 
-                    b.HasKey("korisnickoIme");
+                    b.HasKey("Id");
+
+                    b.HasIndex("NormalizedEmail")
+                        .HasName("EmailIndex");
+
+                    b.HasIndex("NormalizedUserName")
+                        .IsUnique()
+                        .HasName("UserNameIndex");
 
                     b.ToTable("Korisnik");
                 });
@@ -127,9 +177,9 @@ namespace Michelin.Migrations
                     b.Property<string>("id")
                         .HasColumnType("varchar(767)");
 
-                    b.Property<string>("korisnikkorisnickoIme")
+                    b.Property<string>("korisnikId")
                         .IsRequired()
-                        .HasColumnType("varchar(30)");
+                        .HasColumnType("varchar(767)");
 
                     b.Property<string>("receptid")
                         .IsRequired()
@@ -140,7 +190,7 @@ namespace Michelin.Migrations
 
                     b.HasKey("id");
 
-                    b.HasIndex("korisnikkorisnickoIme");
+                    b.HasIndex("korisnikId");
 
                     b.HasIndex("receptid");
 
@@ -152,9 +202,9 @@ namespace Michelin.Migrations
                     b.Property<string>("id")
                         .HasColumnType("varchar(767)");
 
-                    b.Property<string>("autorkorisnickoIme")
+                    b.Property<string>("autorId")
                         .IsRequired()
-                        .HasColumnType("varchar(30)");
+                        .HasColumnType("varchar(767)");
 
                     b.Property<DateTime>("datum")
                         .HasColumnType("datetime");
@@ -182,7 +232,7 @@ namespace Michelin.Migrations
 
                     b.HasKey("id");
 
-                    b.HasIndex("autorkorisnickoIme");
+                    b.HasIndex("autorId");
 
                     b.HasIndex("nacinPripremeid");
 
@@ -220,9 +270,9 @@ namespace Michelin.Migrations
                     b.Property<int>("kategorija")
                         .HasColumnType("int");
 
-                    b.Property<string>("korisnikkorisnickoIme")
+                    b.Property<string>("korisnikId")
                         .IsRequired()
-                        .HasColumnType("varchar(30)");
+                        .HasColumnType("varchar(767)");
 
                     b.Property<bool>("obradjeno")
                         .HasColumnType("tinyint(1)");
@@ -236,7 +286,7 @@ namespace Michelin.Migrations
 
                     b.HasIndex("administratoremailAdresa");
 
-                    b.HasIndex("korisnikkorisnickoIme");
+                    b.HasIndex("korisnikId");
 
                     b.ToTable("ZahtjevZaPomoc");
                 });
@@ -290,70 +340,6 @@ namespace Michelin.Migrations
                     b.ToTable("AspNetRoleClaims");
                 });
 
-            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUser", b =>
-                {
-                    b.Property<string>("Id")
-                        .HasColumnType("varchar(767)");
-
-                    b.Property<int>("AccessFailedCount")
-                        .HasColumnType("int");
-
-                    b.Property<string>("ConcurrencyStamp")
-                        .IsConcurrencyToken()
-                        .HasColumnType("text");
-
-                    b.Property<string>("Email")
-                        .HasColumnType("varchar(256)")
-                        .HasMaxLength(256);
-
-                    b.Property<bool>("EmailConfirmed")
-                        .HasColumnType("tinyint(1)");
-
-                    b.Property<bool>("LockoutEnabled")
-                        .HasColumnType("tinyint(1)");
-
-                    b.Property<DateTimeOffset?>("LockoutEnd")
-                        .HasColumnType("timestamp");
-
-                    b.Property<string>("NormalizedEmail")
-                        .HasColumnType("varchar(256)")
-                        .HasMaxLength(256);
-
-                    b.Property<string>("NormalizedUserName")
-                        .HasColumnType("varchar(256)")
-                        .HasMaxLength(256);
-
-                    b.Property<string>("PasswordHash")
-                        .HasColumnType("text");
-
-                    b.Property<string>("PhoneNumber")
-                        .HasColumnType("text");
-
-                    b.Property<bool>("PhoneNumberConfirmed")
-                        .HasColumnType("tinyint(1)");
-
-                    b.Property<string>("SecurityStamp")
-                        .HasColumnType("text");
-
-                    b.Property<bool>("TwoFactorEnabled")
-                        .HasColumnType("tinyint(1)");
-
-                    b.Property<string>("UserName")
-                        .HasColumnType("varchar(256)")
-                        .HasMaxLength(256);
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("NormalizedEmail")
-                        .HasName("EmailIndex");
-
-                    b.HasIndex("NormalizedUserName")
-                        .IsUnique()
-                        .HasName("UserNameIndex");
-
-                    b.ToTable("AspNetUsers");
-                });
-
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserClaim<string>", b =>
                 {
                     b.Property<int>("Id")
@@ -380,12 +366,10 @@ namespace Michelin.Migrations
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserLogin<string>", b =>
                 {
                     b.Property<string>("LoginProvider")
-                        .HasColumnType("varchar(128)")
-                        .HasMaxLength(128);
+                        .HasColumnType("varchar(767)");
 
                     b.Property<string>("ProviderKey")
-                        .HasColumnType("varchar(128)")
-                        .HasMaxLength(128);
+                        .HasColumnType("varchar(767)");
 
                     b.Property<string>("ProviderDisplayName")
                         .HasColumnType("text");
@@ -422,12 +406,10 @@ namespace Michelin.Migrations
                         .HasColumnType("varchar(767)");
 
                     b.Property<string>("LoginProvider")
-                        .HasColumnType("varchar(128)")
-                        .HasMaxLength(128);
+                        .HasColumnType("varchar(767)");
 
                     b.Property<string>("Name")
-                        .HasColumnType("varchar(128)")
-                        .HasMaxLength(128);
+                        .HasColumnType("varchar(767)");
 
                     b.Property<string>("Value")
                         .HasColumnType("text");
@@ -441,7 +423,7 @@ namespace Michelin.Migrations
                 {
                     b.HasOne("Michelin.Models.Korisnik", "autor")
                         .WithMany()
-                        .HasForeignKey("autorkorisnickoIme")
+                        .HasForeignKey("autorId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
@@ -456,7 +438,7 @@ namespace Michelin.Migrations
                 {
                     b.HasOne("Michelin.Models.Korisnik", "korisnik")
                         .WithMany()
-                        .HasForeignKey("korisnikkorisnickoIme")
+                        .HasForeignKey("korisnikId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
@@ -471,7 +453,7 @@ namespace Michelin.Migrations
                 {
                     b.HasOne("Michelin.Models.Korisnik", "autor")
                         .WithMany()
-                        .HasForeignKey("autorkorisnickoIme")
+                        .HasForeignKey("autorId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
@@ -490,7 +472,7 @@ namespace Michelin.Migrations
 
                     b.HasOne("Michelin.Models.Korisnik", "korisnik")
                         .WithMany()
-                        .HasForeignKey("korisnikkorisnickoIme")
+                        .HasForeignKey("korisnikId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });
@@ -506,7 +488,7 @@ namespace Michelin.Migrations
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserClaim<string>", b =>
                 {
-                    b.HasOne("Microsoft.AspNetCore.Identity.IdentityUser", null)
+                    b.HasOne("Michelin.Models.Korisnik", null)
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -515,7 +497,7 @@ namespace Michelin.Migrations
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserLogin<string>", b =>
                 {
-                    b.HasOne("Microsoft.AspNetCore.Identity.IdentityUser", null)
+                    b.HasOne("Michelin.Models.Korisnik", null)
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -530,7 +512,7 @@ namespace Michelin.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("Microsoft.AspNetCore.Identity.IdentityUser", null)
+                    b.HasOne("Michelin.Models.Korisnik", null)
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -539,7 +521,7 @@ namespace Michelin.Migrations
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserToken<string>", b =>
                 {
-                    b.HasOne("Microsoft.AspNetCore.Identity.IdentityUser", null)
+                    b.HasOne("Michelin.Models.Korisnik", null)
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
