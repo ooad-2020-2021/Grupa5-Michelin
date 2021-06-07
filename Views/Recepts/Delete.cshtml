@@ -1,0 +1,57 @@
+﻿@model Michelin.Models.Recept
+
+@{
+    ViewData["Title"] = "Delete";
+}
+
+<h1>Delete</h1>
+
+<h3>Are you sure you want to delete this?</h3>
+<div>
+    <h4>Recept</h4>
+    <hr />
+    <dl class="row">
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.naziv)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.naziv)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.vrijemePripreme)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.vrijemePripreme)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.nacionalnoJelo)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.nacionalnoJelo)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.vrstaJela)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.vrstaJela)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.vegansko)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.vegansko)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.datum)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.datum)
+        </dd>
+    </dl>
+    
+    <form asp-action="Delete">
+        <input type="hidden" asp-for="id" />
+        <input type="submit" value="Delete" class="btn btn-danger" /> |
+        <a asp-action="Index">Back to List</a>
+    </form>
+</div>

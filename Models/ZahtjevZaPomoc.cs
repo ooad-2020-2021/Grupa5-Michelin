@@ -49,6 +49,8 @@ namespace Michelin.Models
 			this.korisnik = korisnik;
 			this.obradjeno = false;
         }
+
+		public ZahtjevZaPomoc() { }
         #endregion
     }
 }

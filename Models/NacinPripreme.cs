@@ -31,6 +31,8 @@ namespace Michelin.Models {
 			opisPripreme = opis;
         }
 
+		public NacinPripreme() { }
+
         #endregion
     }
 }

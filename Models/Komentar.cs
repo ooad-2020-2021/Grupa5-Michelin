@@ -35,6 +35,8 @@ namespace Michelin.Models
 			//id = generirajId();
 			datum = DateTime.Now;
         }
+
+		public Komentar() { }
         #endregion
     }
 }

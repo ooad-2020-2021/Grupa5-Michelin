@@ -83,6 +83,7 @@ namespace Michelin.Models
 		public Recept(string naziv, int vrijemePripreme, NacionalnoJelo nacionalnoJelo,
 			VrstaJela vrsta, Boolean vegansko, Korisnik autor, NacinPripreme nacinPripreme)
         {
+		
 			this.naziv = naziv;
 			this.vrijemePripreme = vrijemePripreme;
 			this.nacionalnoJelo = nacionalnoJelo;
@@ -92,6 +93,8 @@ namespace Michelin.Models
 			this.nacinPripreme = nacinPripreme;
 			datum = DateTime.Now;
         }
+
+		public Recept() { }
 
         #endregion
     }

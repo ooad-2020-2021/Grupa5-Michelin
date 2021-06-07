@@ -45,6 +45,8 @@ namespace Michelin.Models
 			this.kolicina = kolicina;
 			this.mjernaJedinica = mjernaJedinica;
         }
+
+		public Sastojak() { }
         #endregion
 
     }

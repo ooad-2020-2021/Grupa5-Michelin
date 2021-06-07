@@ -68,6 +68,8 @@ namespace Michelin.Models
 			aktivan = true;
 		}
 
+		public Korisnik() { }
+
         #endregion
 
 		public List<Recept> pretvoriStringUListu()

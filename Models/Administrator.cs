@@ -23,6 +23,8 @@ namespace Michelin.Models
             emailAdresa = email;
             
         }
+
+        public Administrator() { }
         #endregion
 
        

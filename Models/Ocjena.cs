@@ -30,6 +30,8 @@ namespace Michelin.Models
             this.recept = recept;
             this.vrijednost = vrijednost;
         }
+
+        public Ocjena() { }
         #endregion
     }
 }

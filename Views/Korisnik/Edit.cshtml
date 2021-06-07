@@ -1,0 +1,79 @@
+﻿@model Michelin.Models.Korisnik
+
+@{
+    ViewData["Title"] = "Edit";
+}
+
+<h1>Edit</h1>
+
+<h4>Korisnik</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Edit">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" asp-for="korisnickoIme" />
+            <div class="form-group">
+                <label asp-for="ime" class="control-label"></label>
+                <input asp-for="ime" class="form-control" />
+                <span asp-validation-for="ime" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="prezime" class="control-label"></label>
+                <input asp-for="prezime" class="form-control" />
+                <span asp-validation-for="prezime" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="emailAdresa" class="control-label"></label>
+                <input asp-for="emailAdresa" class="form-control" />
+                <span asp-validation-for="emailAdresa" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="brojMobitela" class="control-label"></label>
+                <input asp-for="brojMobitela" class="form-control" />
+                <span asp-validation-for="brojMobitela" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="kratkaBiografija" class="control-label"></label>
+                <input asp-for="kratkaBiografija" class="form-control" />
+                <span asp-validation-for="kratkaBiografija" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="brojKreditneKartice" class="control-label"></label>
+                <input asp-for="brojKreditneKartice" class="form-control" />
+                <span asp-validation-for="brojKreditneKartice" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="datumAktivacije" class="control-label"></label>
+                <input asp-for="datumAktivacije" class="form-control" />
+                <span asp-validation-for="datumAktivacije" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="datumDeaktivacije" class="control-label"></label>
+                <input asp-for="datumDeaktivacije" class="form-control" />
+                <span asp-validation-for="datumDeaktivacije" class="text-danger"></span>
+            </div>
+            <div class="form-group form-check">
+                <label class="form-check-label">
+                    <input class="form-check-input" asp-for="aktivan" /> @Html.DisplayNameFor(model => model.aktivan)
+                </label>
+            </div>
+            <div class="form-group">
+                <label asp-for="omiljeniRecepti" class="control-label"></label>
+                <input asp-for="omiljeniRecepti" class="form-control" />
+                <span asp-validation-for="omiljeniRecepti" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Save" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}
