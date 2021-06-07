@@ -1,5 +1,7 @@
 using Michelin.Data;
+using Michelin.Infrastructure;
 using Michelin.Models;
+using Michelin.Services;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -33,6 +35,8 @@ namespace Michelin
                     Configuration.GetConnectionString("ApplicationDbContext")));
             services.AddIdentity<Korisnik, IdentityRole>().AddDefaultTokenProviders().AddDefaultUI()
                 .AddEntityFrameworkStores<ApplicationDbContext>();
+
+            services.AddTransient<IUnitOfWork, UnitOfWork>();
             services.AddControllersWithViews();
             services.AddRazorPages();
         }

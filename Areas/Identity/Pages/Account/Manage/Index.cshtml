@@ -7,23 +7,42 @@
 
 <h4>@ViewData["Title"]</h4>
 <partial name="_StatusMessage" model="Model.StatusMessage" />
-<div class="row">
-    <div class="col-md-6">
-        <form id="profile-form" method="post">
+
+<form id="profile-form" method="post" enctype="multipart/form-data">
+    <div class="row">
+        <div class="col-md-6">
+            <
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="form-group">
                 <label asp-for="Username"></label>
                 <input asp-for="Username" class="form-control" disabled />
             </div>
             <div class="form-group">
-                <label asp-for="Input.PhoneNumber"></label>
-                <input asp-for="Input.PhoneNumber" class="form-control" />
-                <span asp-validation-for="Input.PhoneNumber" class="text-danger"></span>
+                <label asp-for="Input.KratkaBiografija"></label>
+                <input asp-for="Input.KratkaBiografija" class="form-control" />
+                <span asp-validation-for="Input.KratkaBiografija" class="text-danger"></span>
             </div>
-            <button id="update-profile-button" type="submit" class="btn btn-primary">Save</button>
-        </form>
+            <div class="form-group">
+                <label asp-for="Input.BrojTelefona"></label>
+                <input asp-for="Input.BrojTelefona" class="form-control" />
+                <span asp-validation-for="Input.BrojTelefona" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="SlikaProfila"></label>
+                <img src="/uploads/@Model.SlikaProfila" class="img-thumbnail"/>
+            </div>
+        </div>
     </div>
-</div>
+    <div class="col-md-6">
+        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+        <div class="form-group">
+            <label asp-for="Input.SlikaProfila" style="width: 100%;"></label>
+            <input type="file" name="file" />
+            <span asp-validation-for="Input.SlikaProfila" class="text-danger"></span>
+        </div>
+        <button id="update-profile-button" type="submit" class="btn btn-primary">Save</button>
+    </div>
+</form>
 
 @section Scripts {
     <partial name="_ValidationScriptsPartial" />

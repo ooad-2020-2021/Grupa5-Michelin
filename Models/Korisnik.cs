@@ -13,12 +13,12 @@ namespace Michelin.Models
 
 		//[Key]
 		[Required]
-		[StringLength(maximumLength:30, MinimumLength =3, ErrorMessage ="Korisničko ime se mora sastojati od najmanje 3 i" +
+		[StringLength(maximumLength: 30, MinimumLength = 3, ErrorMessage = "Korisničko ime se mora sastojati od najmanje 3 i" +
 			"najviše 30 karaktera!")]
 		public string korisnickoIme { get; set; }
 
 		[Required]
-		[RegularExpression(@"[A-Z|a-z| ]*", ErrorMessage ="Dozvoljavaju se imena koja se sastoje isključivo od slova!")]
+		[RegularExpression(@"[A-Z|a-z| ]*", ErrorMessage = "Dozvoljavaju se imena koja se sastoje isključivo od slova!")]
 		public string ime { get; set; }
 
 		[Required]
@@ -46,8 +46,10 @@ namespace Michelin.Models
 		[Required]
 		public Boolean aktivan { get; set; }
 
-		
+
 		public string omiljeniRecepti { get; set; }
+
+		public string profilnaSlika {get; set;}
 
         #endregion
 

@@ -73,6 +73,7 @@ namespace Michelin.Areas.Identity.Pages.Account
             [Display(Name = "Korisničko ime")]
             public string korisnickoIme { get; set; }
 
+            [Phone]
             [Display(Name = "Broj telefona")]
             public string brojTelefona { get; set; }
 
@@ -99,7 +100,8 @@ namespace Michelin.Areas.Identity.Pages.Account
                     brojMobitela = Input.brojTelefona,
                     kratkaBiografija = "",
                     datumAktivacije = DateTime.Now,
-                    aktivan = true
+                    aktivan = true,
+                    PhoneNumber = Input.brojTelefona
                     
                                            };
                 

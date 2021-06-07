@@ -7,22 +7,29 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Michelin.Models;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using Microsoft.AspNetCore.Http;
+using System.IO;
+using Michelin.Infrastructure;
 
 namespace Michelin.Areas.Identity.Pages.Account.Manage
 {
     public partial class IndexModel : PageModel
     {
+        private readonly IUnitOfWork _unitOfWork;
         private readonly UserManager<Korisnik> _userManager;
         private readonly SignInManager<Korisnik> _signInManager;
 
         public IndexModel(
             UserManager<Korisnik> userManager,
-            SignInManager<Korisnik> signInManager)
+            SignInManager<Korisnik> signInManager,
+            IUnitOfWork unitOfWork)
         {
             _userManager = userManager;
             _signInManager = signInManager;
+            _unitOfWork = unitOfWork;
         }
 
+        public string SlikaProfila { get; set; }
         public string Username { get; set; }
 
         [TempData]
@@ -33,21 +40,32 @@ namespace Michelin.Areas.Identity.Pages.Account.Manage
 
         public class InputModel
         {
+            [Display(Name = "Slika profila")]
+            public string SlikaProfila { get; set; }
+
+            [Display(Name ="Recite nešto o sebi...")]
+            public string KratkaBiografija { get; set; }
             [Phone]
-            [Display(Name = "Phone number")]
-            public string PhoneNumber { get; set; }
+            [Display(Name = "Broj telefona")]
+            public string BrojTelefona { get; set; }
         }
 
         private async Task LoadAsync(Korisnik user)
         {
             var userName = await _userManager.GetUserNameAsync(user);
-            var phoneNumber = await _userManager.GetPhoneNumberAsync(user);
+            var brojTelefona = user.brojMobitela;
+            var kratkaBiografija = user.kratkaBiografija;
+            var profilnaSlika = user.profilnaSlika;
 
             Username = userName;
 
             Input = new InputModel
             {
-                PhoneNumber = phoneNumber
+                BrojTelefona = brojTelefona,
+                SlikaProfila = profilnaSlika,
+                KratkaBiografija = kratkaBiografija
+
+
             };
         }
 
@@ -59,13 +77,17 @@ namespace Michelin.Areas.Identity.Pages.Account.Manage
                 return NotFound($"Unable to load user with ID '{_userManager.GetUserId(User)}'.");
             }
 
+            SlikaProfila = user.profilnaSlika;
             await LoadAsync(user);
             return Page();
         }
 
-        public async Task<IActionResult> OnPostAsync()
+        public async Task<IActionResult> OnPostAsync(IFormFile file)
         {
+            _unitOfWork.UploadImage(file);
             var user = await _userManager.GetUserAsync(User);
+            var phoneNumber = await _userManager.GetPhoneNumberAsync(user);
+           
             if (user == null)
             {
                 return NotFound($"Unable to load user with ID '{_userManager.GetUserId(User)}'.");
@@ -77,16 +99,37 @@ namespace Michelin.Areas.Identity.Pages.Account.Manage
                 return Page();
             }
 
-            var phoneNumber = await _userManager.GetPhoneNumberAsync(user);
-            if (Input.PhoneNumber != phoneNumber)
+            if (Input.BrojTelefona != phoneNumber)
             {
-                var setPhoneResult = await _userManager.SetPhoneNumberAsync(user, Input.PhoneNumber);
+                var setPhoneResult = await _userManager.SetPhoneNumberAsync(user, Input.BrojTelefona);
                 if (!setPhoneResult.Succeeded)
                 {
                     StatusMessage = "Unexpected error when trying to set phone number.";
                     return RedirectToPage();
                 }
+                
             }
+
+            var brojTelefona = user.brojMobitela;
+            var profilnaSlika = user.profilnaSlika;
+            var kratkaBiografija = user.kratkaBiografija;
+
+            if (Input.BrojTelefona != brojTelefona)
+            {
+                user.brojMobitela = Input.BrojTelefona;
+                await _userManager.UpdateAsync(user);
+            }
+
+            _unitOfWork.UploadImage(file);
+            user.profilnaSlika = file.FileName;
+            await _userManager.UpdateAsync(user);
+
+            if (Input.KratkaBiografija!= kratkaBiografija)
+            {
+                user.kratkaBiografija = Input.KratkaBiografija;
+                await _userManager.UpdateAsync(user);
+            }
+
 
             await _signInManager.RefreshSignInAsync(user);
             StatusMessage = "Your profile has been updated";

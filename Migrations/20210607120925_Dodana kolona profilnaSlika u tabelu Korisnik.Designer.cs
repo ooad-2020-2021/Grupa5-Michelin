@@ -3,14 +3,16 @@ using System;
 using Michelin.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace Michelin.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20210607120925_Dodana kolona profilnaSlika u tabelu Korisnik")]
+    partial class DodanakolonaprofilnaSlikautabeluKorisnik
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -141,8 +143,8 @@ namespace Michelin.Migrations
                         .IsRequired()
                         .HasColumnType("text");
 
-                    b.Property<string>("profilnaSlika")
-                        .HasColumnType("text");
+                    b.Property<byte[]>("profilnaSlika")
+                        .HasColumnType("varbinary(4000)");
 
                     b.HasKey("Id");
 
