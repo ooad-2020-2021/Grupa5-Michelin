@@ -26,7 +26,7 @@ namespace Michelin.Controllers
         }
 
         // GET: Recepts/Details/5
-        public async Task<IActionResult> Details(string id)
+        public async Task<IActionResult> Recept(string id)
         {
             if (id == null)
             {
@@ -44,7 +44,7 @@ namespace Michelin.Controllers
         }
 
         // GET: Recepts/Create
-        public IActionResult Create()
+        public IActionResult DodavanjeRecepta()
         {
             return View();
         }

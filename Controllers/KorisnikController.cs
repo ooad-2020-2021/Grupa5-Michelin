@@ -25,8 +25,13 @@ namespace Michelin.Controllers
             return View(await _context.Korisnik.ToListAsync());
         }
 
+        public IActionResult Deaktivacija()
+        {
+            return View();
+        }
+
         // GET: Korisnik/Details/5
-        public async Task<IActionResult> Details(string id)
+        public async Task<IActionResult> Profil(string id)
         {
             if (id == null)
             {
