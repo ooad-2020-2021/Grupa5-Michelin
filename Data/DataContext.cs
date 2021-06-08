@@ -17,7 +17,6 @@ namespace Michelin.Data
         public DbSet<Michelin.Models.Korisnik> Korisnik { get; set; }
         public DbSet<Michelin.Models.Sastojak> Sastojak { get; set; }
         public DbSet<Michelin.Models.Recept> Recept { get; set; }
-        public DbSet<Michelin.Models.Administrator> Administrator { get; set; }
         public DbSet<Michelin.Models.Komentar> Komentar { get; set; }
         public DbSet<Michelin.Models.Ocjena> Ocjena { get; set; }
         public DbSet<Michelin.Models.NacinPripreme> NacinPripreme { get; set; }
@@ -29,7 +28,6 @@ namespace Michelin.Data
             builder.Entity<Korisnik>().ToTable("Korisnik");
             builder.Entity<Sastojak>().ToTable("Sastojak");
             builder.Entity<Recept>().ToTable("Recept");
-            builder.Entity<Administrator>().ToTable("Administrator");
             builder.Entity<Komentar>().ToTable("Komentar");
             builder.Entity<Ocjena>().ToTable("Ocjena");
             builder.Entity<NacinPripreme>().ToTable("Nacin Pripreme");

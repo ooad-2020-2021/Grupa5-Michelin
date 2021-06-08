@@ -1,24 +1,14 @@
-﻿using System;
+﻿
+using System;
 using Microsoft.EntityFrameworkCore.Migrations;
 using MySql.Data.EntityFrameworkCore.Metadata;
 
 namespace Michelin.Migrations
 {
-    public partial class Initial : Migration
+    public partial class PonovnamigracijabeztabeleAdministrator : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
-            migrationBuilder.CreateTable(
-                name: "Administrator",
-                columns: table => new
-                {
-                    emailAdresa = table.Column<string>(nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Administrator", x => x.emailAdresa);
-                });
-
             migrationBuilder.CreateTable(
                 name: "AspNetRoles",
                 columns: table => new
@@ -60,7 +50,8 @@ namespace Michelin.Migrations
                     datumAktivacije = table.Column<DateTime>(nullable: false),
                     datumDeaktivacije = table.Column<DateTime>(nullable: false),
                     aktivan = table.Column<bool>(nullable: false),
-                    omiljeniRecepti = table.Column<string>(nullable: true)
+                    omiljeniRecepti = table.Column<string>(nullable: true),
+                    profilnaSlika = table.Column<string>(nullable: true)
                 },
                 constraints: table =>
                 {
@@ -208,18 +199,11 @@ namespace Michelin.Migrations
                     kategorija = table.Column<int>(nullable: false),
                     sadrzaj = table.Column<string>(maxLength: 1000, nullable: false),
                     korisnikId = table.Column<string>(nullable: false),
-                    obradjeno = table.Column<bool>(nullable: false),
-                    administratoremailAdresa = table.Column<string>(nullable: true)
+                    obradjeno = table.Column<bool>(nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_ZahtjevZaPomoc", x => x.id);
-                    table.ForeignKey(
-                        name: "FK_ZahtjevZaPomoc_Administrator_administratoremailAdresa",
-                        column: x => x.administratoremailAdresa,
-                        principalTable: "Administrator",
-                        principalColumn: "emailAdresa",
-                        onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
                         name: "FK_ZahtjevZaPomoc_Korisnik_korisnikId",
                         column: x => x.korisnikId,
@@ -380,11 +364,6 @@ namespace Michelin.Migrations
                 column: "nacinPripremeid");
 
             migrationBuilder.CreateIndex(
-                name: "IX_ZahtjevZaPomoc_administratoremailAdresa",
-                table: "ZahtjevZaPomoc",
-                column: "administratoremailAdresa");
-
-            migrationBuilder.CreateIndex(
                 name: "IX_ZahtjevZaPomoc_korisnikId",
                 table: "ZahtjevZaPomoc",
                 column: "korisnikId");
@@ -424,9 +403,6 @@ namespace Michelin.Migrations
 
             migrationBuilder.DropTable(
                 name: "Recept");
-
-            migrationBuilder.DropTable(
-                name: "Administrator");
 
             migrationBuilder.DropTable(
                 name: "Korisnik");

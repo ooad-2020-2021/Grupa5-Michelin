@@ -9,8 +9,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Michelin.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20210607105344_Initial")]
-    partial class Initial
+    [Migration("20210608001322_Ponovna migracija bez tabele Administrator")]
+    partial class PonovnamigracijabeztabeleAdministrator
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -18,16 +18,6 @@ namespace Michelin.Migrations
             modelBuilder
                 .HasAnnotation("ProductVersion", "3.1.15")
                 .HasAnnotation("Relational:MaxIdentifierLength", 64);
-
-            modelBuilder.Entity("Michelin.Models.Administrator", b =>
-                {
-                    b.Property<string>("emailAdresa")
-                        .HasColumnType("varchar(767)");
-
-                    b.HasKey("emailAdresa");
-
-                    b.ToTable("Administrator");
-                });
 
             modelBuilder.Entity("Michelin.Models.Komentar", b =>
                 {
@@ -141,6 +131,9 @@ namespace Michelin.Migrations
 
                     b.Property<string>("prezime")
                         .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<string>("profilnaSlika")
                         .HasColumnType("text");
 
                     b.HasKey("Id");
@@ -266,9 +259,6 @@ namespace Michelin.Migrations
                     b.Property<string>("id")
                         .HasColumnType("varchar(767)");
 
-                    b.Property<string>("administratoremailAdresa")
-                        .HasColumnType("varchar(767)");
-
                     b.Property<int>("kategorija")
                         .HasColumnType("int");
 
@@ -285,8 +275,6 @@ namespace Michelin.Migrations
                         .HasMaxLength(1000);
 
                     b.HasKey("id");
-
-                    b.HasIndex("administratoremailAdresa");
 
                     b.HasIndex("korisnikId");
 
@@ -468,10 +456,6 @@ namespace Michelin.Migrations
 
             modelBuilder.Entity("Michelin.Models.ZahtjevZaPomoc", b =>
                 {
-                    b.HasOne("Michelin.Models.Administrator", "administrator")
-                        .WithMany()
-                        .HasForeignKey("administratoremailAdresa");
-
                     b.HasOne("Michelin.Models.Korisnik", "korisnik")
                         .WithMany()
                         .HasForeignKey("korisnikId")

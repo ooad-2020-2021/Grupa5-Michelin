@@ -17,16 +17,6 @@ namespace Michelin.Migrations
                 .HasAnnotation("ProductVersion", "3.1.15")
                 .HasAnnotation("Relational:MaxIdentifierLength", 64);
 
-            modelBuilder.Entity("Michelin.Models.Administrator", b =>
-                {
-                    b.Property<string>("emailAdresa")
-                        .HasColumnType("varchar(767)");
-
-                    b.HasKey("emailAdresa");
-
-                    b.ToTable("Administrator");
-                });
-
             modelBuilder.Entity("Michelin.Models.Komentar", b =>
                 {
                     b.Property<string>("id")
@@ -267,9 +257,6 @@ namespace Michelin.Migrations
                     b.Property<string>("id")
                         .HasColumnType("varchar(767)");
 
-                    b.Property<string>("administratoremailAdresa")
-                        .HasColumnType("varchar(767)");
-
                     b.Property<int>("kategorija")
                         .HasColumnType("int");
 
@@ -286,8 +273,6 @@ namespace Michelin.Migrations
                         .HasMaxLength(1000);
 
                     b.HasKey("id");
-
-                    b.HasIndex("administratoremailAdresa");
 
                     b.HasIndex("korisnikId");
 
@@ -469,10 +454,6 @@ namespace Michelin.Migrations
 
             modelBuilder.Entity("Michelin.Models.ZahtjevZaPomoc", b =>
                 {
-                    b.HasOne("Michelin.Models.Administrator", "administrator")
-                        .WithMany()
-                        .HasForeignKey("administratoremailAdresa");
-
                     b.HasOne("Michelin.Models.Korisnik", "korisnik")
                         .WithMany()
                         .HasForeignKey("korisnikId")
