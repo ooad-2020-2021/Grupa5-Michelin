@@ -34,14 +34,16 @@ namespace Michelin.Models
 		[Display(Name = "Opis problema")]
 		public string sadrzaj { get; set; }
 
-		[Required]
+		
 		[Display(Name = "Prijavio")]
 		public Korisnik korisnik { get; set; }
 
-		[Required]
+		
 		[Display(Name = "Obrađeno")]
 		public Boolean obradjeno { get; set; }
 
+		[Display(Name ="Datum prijave")]
+		public DateTime datum { get; set; }
 
         #endregion
 

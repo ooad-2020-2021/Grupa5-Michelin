@@ -11,8 +11,8 @@
         <form asp-action="Create">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="form-group">
-                @Html.DropDownList("Kategorija: ", Html.GetEnumSelectList<KategorijaZahtjevaZaPomoc>(),
-               "Odaberite kategoriju problema", new { @class = "form-control" })
+                <label asp-for="kategorija" class="form-label mt-4"></label>
+                <select asp-for="kategorija" class="form-control" asp-items="Html.GetEnumSelectList<KategorijaZahtjevaZaPomoc>()"></select>
                 <span asp-validation-for="kategorija" class="text-danger"></span>
             </div>
             <div class="form-group">

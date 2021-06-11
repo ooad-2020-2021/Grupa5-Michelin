@@ -15,19 +15,34 @@ namespace Michelin.Util
         #endregion
 
         #region Constructor
-        public PrioritetniIterator()
+        public PrioritetniIterator(List<ZahtjevZaPomoc> zahtjevi)
         {
-            //uzima sve neobradjene zahtjeve iz baze i njima inicijalizira listu
-            //trenutni zahtjev postavlja na 0
+            zahtjeviZaPomoc = zahtjevi;
+            zahtjeviZaPomoc.Sort((ZahtjevZaPomoc x, ZahtjevZaPomoc y) =>
+            {
+                if (x.kategorija == KategorijaZahtjevaZaPomoc.Tehnicki_Problem && y.kategorija == KategorijaZahtjevaZaPomoc.Pogresno_napisan_recept)
+                    return -1;
+                else if (x.kategorija == KategorijaZahtjevaZaPomoc.Tehnicki_Problem && y.kategorija == KategorijaZahtjevaZaPomoc.Pitanja_Sugestije)
+                    return -1;
+                else if (x.kategorija == KategorijaZahtjevaZaPomoc.Neprimjeren_sadrzaj)
+                    return -1;
+                else if (x.kategorija == KategorijaZahtjevaZaPomoc.Pogresno_napisan_recept && y.kategorija == KategorijaZahtjevaZaPomoc.Pitanja_Sugestije)
+                    return -1;
+                else if (x.kategorija == y.kategorija)
+                    return 0;
+
+                return 1;
+            });
+            trenutniZahtjev = 0;
         }
         #endregion
 
         #region Metode
         public ZahtjevZaPomoc dajNaredniZahtjevZaPomoc()
         {
-            //vraca sljedeci zahtjev iz liste ali po prioritetu
-            //mozda je najbolje u konstruktoru sortirati listu po prioritetu
-            throw new NotImplementedException();
+            if (trenutniZahtjev + 1 > zahtjeviZaPomoc.Count - 1) throw new Exception("Izvan opsega");
+            trenutniZahtjev++;
+            return zahtjeviZaPomoc[trenutniZahtjev-1];
         }
         #endregion
     }

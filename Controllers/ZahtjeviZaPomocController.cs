@@ -9,6 +9,8 @@ using Michelin.Data;
 using Michelin.Models;
 using Microsoft.AspNetCore.Identity;
 using System.Security.Claims;
+using Michelin.Interfaces;
+using Michelin.Util;
 
 namespace Michelin.Controllers
 {
@@ -27,9 +29,24 @@ namespace Michelin.Controllers
         public async Task<IActionResult> Index()
         {
             var zahtjevi = await _context.ZahtjevZaPomoc.ToListAsync();
+    
             zahtjevi.RemoveAll((z) => z.obradjeno == true);
 
-            return View(zahtjevi);
+            IIterator iterator = new PrioritetniIterator(zahtjevi);
+
+            var zahtjeviSortirano = new List<ZahtjevZaPomoc>();
+            var broj = zahtjevi.Count;
+
+            try
+            {
+                while (broj > 0)
+                {
+                    zahtjeviSortirano.Add(iterator.dajNaredniZahtjevZaPomoc());
+                    broj--;
+                }
+            }
+            catch (Exception) { }
+            return View(zahtjeviSortirano);
         }
 
         public async Task<IActionResult> Greska()
@@ -58,6 +75,7 @@ namespace Michelin.Controllers
         // GET: ZahtjeviZaPomoc/Create
         public IActionResult Create()
         {
+            
             return View();
         }
 
@@ -68,12 +86,13 @@ namespace Michelin.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("kategorija,sadrzaj")] ZahtjevZaPomoc zahtjevZaPomoc)
         {
-            //if(ModelState.IsValid)
+            if(ModelState.IsValid)
             {
                 var id = User.FindFirst(ClaimTypes.NameIdentifier);
                 Korisnik korisnik = await _userManager.GetUserAsync(User);
                 zahtjevZaPomoc.obradjeno = false;
                 zahtjevZaPomoc.korisnik = korisnik;
+                zahtjevZaPomoc.datum = DateTime.Now;
                 _context.Add(zahtjevZaPomoc);
                 await _context.SaveChangesAsync();
 
@@ -82,13 +101,14 @@ namespace Michelin.Controllers
             return RedirectToAction("Greska");
         }
 
-        public async  void Obradi(string id)
+        public async Task<RedirectToActionResult> Obradi(string id)
         {
             var zahtjevZaPomoc = await _context.ZahtjevZaPomoc.FindAsync(id);
             zahtjevZaPomoc.obradjeno = true;
             _context.Update(zahtjevZaPomoc);
             await _context.SaveChangesAsync();
 
+            return RedirectToAction("Index");
         }
         // GET: ZahtjeviZaPomoc/Edit/5
         public async Task<IActionResult> Edit(string id)
