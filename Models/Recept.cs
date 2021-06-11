@@ -46,10 +46,10 @@ namespace Michelin.Models
 	{
         #region Properties
 
-		/*zasad necemo stavljati ovaj atribut, jer se mora rucno unijeti, mozda se generise id sam, kad se tabela kreira
+	
 		[Key]
 		[Required]
-		public string id { get; set; }*/
+		public String id { get; set; }
 
         [Required]
 		[StringLength(maximumLength:30,MinimumLength =3,
@@ -80,12 +80,16 @@ namespace Michelin.Models
 		[DataType(DataType.Date)]
 		public DateTime datum { get; set; }
 
+		public string slika { get; set; }
+		public string video { get; set; }
+
         #endregion
 
         #region Constructor
 		public Recept(string naziv, int vrijemePripreme, NacionalnoJelo nacionalnoJelo,
 			VrstaJela vrsta, Boolean vegansko, Korisnik autor, NacinPripreme nacinPripreme)
         {
+			this.id = new Guid().ToString();
 		
 			this.naziv = naziv;
 			this.vrijemePripreme = vrijemePripreme;
