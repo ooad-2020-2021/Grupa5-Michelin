@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Michelin.Models
 {
@@ -48,7 +49,7 @@ namespace Michelin.Models
 
 	
 		[Key]
-		[Required]
+		[DatabaseGenerated(DatabaseGeneratedOption.Identity)]
 		public String id { get; set; }
 
         [Required]
@@ -145,6 +146,8 @@ namespace Michelin.Models
 
 			return new List<Recept>();
 		}
+
+		
         #endregion
     }
 }

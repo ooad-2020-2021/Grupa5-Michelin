@@ -8,7 +8,7 @@ namespace Michelin.Models {
 	{
 		#region Properties
 		[Key]
-		[Required]
+		[DatabaseGenerated(DatabaseGeneratedOption.Identity)]
 		public string id { get; set; }
 
 		[Required]

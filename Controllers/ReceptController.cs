@@ -12,20 +12,23 @@ using System.Security.Claims;
 using Microsoft.AspNetCore.Http;
 using Michelin.Interfaces;
 using Michelin.Util;
+using Michelin.Infrastructure;
 
 namespace Michelin.Controllers
 {
     public class ReceptController : Controller
     {
+        private readonly IUnitOfWork _unitOfWork;
         private readonly ApplicationDbContext _context;
         private readonly UserManager<Korisnik> _userManager;
+        
         private List<ISastojak> sastojci;
-        public ReceptController(ApplicationDbContext context, UserManager<Korisnik> userManager)
+        public ReceptController(ApplicationDbContext context, UserManager<Korisnik> userManager, IUnitOfWork unitOfWork)
         {
             _context = context;
             _userManager = userManager;
             sastojci = new List<ISastojak>();
-
+            _unitOfWork = unitOfWork;
         }
 
         // GET: Recepts
@@ -63,25 +66,26 @@ namespace Michelin.Controllers
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create(IFormCollection form,[Bind("naziv,slika,vrijemePripreme,nacionalnoJelo,vrstaJela,vegansko")] Recept recept)
+        public async Task<IActionResult> Create(IFormFile file,IFormCollection form,[Bind("naziv,vrijemePripreme,nacionalnoJelo,vrstaJela,vegansko")] Recept recept)
         {
 
-            //if (ModelState.IsValid)
+            if (ModelState.IsValid)
             {
+                _unitOfWork.UploadImage(file);
+                recept.slika = file.FileName;
                 var id = User.FindFirst(ClaimTypes.NameIdentifier);
                 Korisnik korisnik = await _userManager.GetUserAsync(User);
-                //za id se treba kreirati metoda za generisanje id-a
-                recept.id = new Guid().ToString();
+              
                 recept.autor = korisnik;
                 recept.datum = DateTime.Now;
                 recept.nacinPripreme = new NacinPripreme();
                 recept.nacinPripreme.opisPripreme = form["opis"];
-               
+
                 //ovdje treba razraditi logiku za sastojke
 
 
 
-
+                _context.Add(recept.nacinPripreme);
                 _context.Add(recept);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
