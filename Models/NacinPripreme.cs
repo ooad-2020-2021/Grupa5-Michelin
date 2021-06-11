@@ -23,7 +23,9 @@ namespace Michelin.Models {
 
         #region Constructor
 		public NacinPripreme(List<Sastojak> sastojci, string opis)
+
         {
+			id = new Guid().ToString();
 			foreach(Sastojak sastojak in sastojci)
             {
 				listaSastojaka += sastojak.id + ";";
@@ -31,7 +33,11 @@ namespace Michelin.Models {
 			opisPripreme = opis;
         }
 
-		public NacinPripreme() { }
+		public NacinPripreme() {
+			id = new Guid().ToString();
+			listaSastojaka = "";
+			opisPripreme = "";
+		}
 
         #endregion
     }

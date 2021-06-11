@@ -7,81 +7,65 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using Michelin.Data;
 using Michelin.Models;
-using Microsoft.AspNetCore.Identity;
-using System.Security.Claims;
 
 namespace Michelin.Controllers
 {
-    public class KorisnikController : Controller
+    public class NacinPripremeController : Controller
     {
         private readonly ApplicationDbContext _context;
-        private readonly UserManager<Korisnik> _userManager;
 
-
-        public KorisnikController(ApplicationDbContext context, UserManager<Korisnik> userManager)
+        public NacinPripremeController(ApplicationDbContext context)
         {
-            _userManager = userManager;
             _context = context;
         }
 
-        // GET: Korisnik
+        // GET: NacinPripreme
         public async Task<IActionResult> Index()
         {
-            return View(await _context.Korisnik.ToListAsync());
+            return View(await _context.NacinPripreme.ToListAsync());
         }
 
-        public IActionResult Deaktivacija()
+        // GET: NacinPripreme/Details/5
+        public async Task<IActionResult> Details(string id)
         {
-            return View();
-        }
-
-        public IActionResult Pomoc()
-        {
-            return View();
-        }
-        // GET: Korisnik/Details/5
-        public async Task<IActionResult> Profil()
-        {
-            var id = User.FindFirst(ClaimTypes.NameIdentifier);
-            Korisnik korisnik = await _userManager.GetUserAsync(User);
-            /*if (id == null)
+            if (id == null)
             {
                 return NotFound();
             }
 
-            var korisnik = await _context.Korisnik
+            var nacinPripreme = await _context.NacinPripreme
                 .FirstOrDefaultAsync(m => m.id == id);
-            if (korisnik == null)
+            if (nacinPripreme == null)
             {
                 return NotFound();
-            }*/
+            }
 
-            return View(korisnik);
+            return View(nacinPripreme);
         }
 
-        // GET: Korisnik/Create
+        // GET: NacinPripreme/Create
         public IActionResult Create()
         {
             return View();
         }
 
-        // POST: Korisnik/Create
+        // POST: NacinPripreme/Create
         // To protect from overposting attacks, enable the specific properties you want to bind to, for 
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("korisnickoIme,ime,prezime,emailAdresa,brojMobitela,kratkaBiografija,brojKreditneKartice,datumAktivacije,datumDeaktivacije,aktivan,omiljeniRecepti")] Korisnik korisnik)
+        public async Task<IActionResult> Create([Bind("id,listaSastojaka,opisPripreme")] NacinPripreme nacinPripreme)
         {
             if (ModelState.IsValid)
             {
-                _context.Add(korisnik);
+                _context.Add(nacinPripreme);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            return View(korisnik);
+            return View(nacinPripreme);
         }
 
-        // GET: Korisnik/Edit/5
+        // GET: NacinPripreme/Edit/5
         public async Task<IActionResult> Edit(string id)
         {
             if (id == null)
@@ -89,22 +73,22 @@ namespace Michelin.Controllers
                 return NotFound();
             }
 
-            var korisnik = await _context.Korisnik.FindAsync(id);
-            if (korisnik == null)
+            var nacinPripreme = await _context.NacinPripreme.FindAsync(id);
+            if (nacinPripreme == null)
             {
                 return NotFound();
             }
-            return View(korisnik);
+            return View(nacinPripreme);
         }
 
-        // POST: Korisnik/Edit/5
+        // POST: NacinPripreme/Edit/5
         // To protect from overposting attacks, enable the specific properties you want to bind to, for 
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(string id, [Bind("korisnickoIme,ime,prezime,emailAdresa,brojMobitela,kratkaBiografija,brojKreditneKartice,datumAktivacije,datumDeaktivacije,aktivan,omiljeniRecepti")] Korisnik korisnik)
+        public async Task<IActionResult> Edit(string id, [Bind("id,listaSastojaka,opisPripreme")] NacinPripreme nacinPripreme)
         {
-            if (id != korisnik.korisnickoIme)
+            if (id != nacinPripreme.id)
             {
                 return NotFound();
             }
@@ -113,12 +97,12 @@ namespace Michelin.Controllers
             {
                 try
                 {
-                    _context.Update(korisnik);
+                    _context.Update(nacinPripreme);
                     await _context.SaveChangesAsync();
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!KorisnikExists(korisnik.korisnickoIme))
+                    if (!NacinPripremeExists(nacinPripreme.id))
                     {
                         return NotFound();
                     }
@@ -129,10 +113,10 @@ namespace Michelin.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            return View(korisnik);
+            return View(nacinPripreme);
         }
 
-        // GET: Korisnik/Delete/5
+        // GET: NacinPripreme/Delete/5
         public async Task<IActionResult> Delete(string id)
         {
             if (id == null)
@@ -140,32 +124,30 @@ namespace Michelin.Controllers
                 return NotFound();
             }
 
-            var korisnik = await _context.Korisnik
-                .FirstOrDefaultAsync(m => m.korisnickoIme == id);
-            if (korisnik == null)
+            var nacinPripreme = await _context.NacinPripreme
+                .FirstOrDefaultAsync(m => m.id == id);
+            if (nacinPripreme == null)
             {
                 return NotFound();
             }
 
-            return View(korisnik);
+            return View(nacinPripreme);
         }
 
-        // POST: Korisnik/Delete/5
+        // POST: NacinPripreme/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(string id)
         {
-            var korisnik = await _context.Korisnik.FindAsync(id);
-            _context.Korisnik.Remove(korisnik);
+            var nacinPripreme = await _context.NacinPripreme.FindAsync(id);
+            _context.NacinPripreme.Remove(nacinPripreme);
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
 
-        private bool KorisnikExists(string id)
+        private bool NacinPripremeExists(string id)
         {
-            return _context.Korisnik.Any(e => e.korisnickoIme == id);
+            return _context.NacinPripreme.Any(e => e.id == id);
         }
-
-        
     }
 }

@@ -7,16 +7,19 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using Michelin.Data;
 using Michelin.Models;
+using Microsoft.AspNetCore.Identity;
+using System.Security.Claims;
 
 namespace Michelin.Controllers
 {
     public class ReceptController : Controller
     {
         private readonly ApplicationDbContext _context;
-
-        public ReceptController(ApplicationDbContext context)
+        private readonly UserManager<Korisnik> _userManager;
+        public ReceptController(ApplicationDbContext context, UserManager<Korisnik> userManager)
         {
             _context = context;
+            _userManager = userManager;
         }
 
         // GET: Recepts
@@ -44,7 +47,7 @@ namespace Michelin.Controllers
         }
 
         // GET: Recepts/Create
-        public IActionResult DodavanjeRecepta()
+        public IActionResult Create()
         {
             return View();
         }
@@ -54,15 +57,27 @@ namespace Michelin.Controllers
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("id,naziv,vrijemePripreme,nacionalnoJelo,vrstaJela,vegansko,datum")] Recept recept)
+        public async Task<IActionResult> Create([Bind("naziv,slika,vrijemePripreme,nacionalnoJelo,vrstaJela,vegansko")] Recept recept)
         {
-            if (ModelState.IsValid)
+            //if (ModelState.IsValid)
             {
+                var id = User.FindFirst(ClaimTypes.NameIdentifier);
+                Korisnik korisnik = await _userManager.GetUserAsync(User);
+                recept.id = new Guid().ToString();
+                recept.autor = korisnik;
+                recept.datum = DateTime.Now;
+                recept.nacinPripreme = new NacinPripreme();
+               
+                //ovdje treba razraditi logiku za sastojke
+
+
+
+
                 _context.Add(recept);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            return View(recept);
+            return RedirectToAction(nameof(Index));
         }
 
         // GET: Recepts/Edit/5
