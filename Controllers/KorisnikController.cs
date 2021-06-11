@@ -7,15 +7,20 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using Michelin.Data;
 using Michelin.Models;
+using Microsoft.AspNetCore.Identity;
+using System.Security.Claims;
 
 namespace Michelin.Controllers
 {
     public class KorisnikController : Controller
     {
         private readonly ApplicationDbContext _context;
+        private readonly UserManager<Korisnik> _userManager;
 
-        public KorisnikController(ApplicationDbContext context)
+
+        public KorisnikController(ApplicationDbContext context, UserManager<Korisnik> userManager)
         {
+            _userManager = userManager;
             _context = context;
         }
 
@@ -31,19 +36,21 @@ namespace Michelin.Controllers
         }
 
         // GET: Korisnik/Details/5
-        public async Task<IActionResult> Profil(string id)
+        public async Task<IActionResult> Profil()
         {
-            if (id == null)
+            var id = User.FindFirst(ClaimTypes.NameIdentifier);
+            Korisnik korisnik = await _userManager.GetUserAsync(User);
+            /*if (id == null)
             {
                 return NotFound();
             }
 
             var korisnik = await _context.Korisnik
-                .FirstOrDefaultAsync(m => m.korisnickoIme == id);
+                .FirstOrDefaultAsync(m => m.id == id);
             if (korisnik == null)
             {
                 return NotFound();
-            }
+            }*/
 
             return View(korisnik);
         }
@@ -154,5 +161,7 @@ namespace Michelin.Controllers
         {
             return _context.Korisnik.Any(e => e.korisnickoIme == id);
         }
+
+        
     }
 }
