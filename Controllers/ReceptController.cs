@@ -9,6 +9,7 @@ using Michelin.Data;
 using Michelin.Models;
 using Microsoft.AspNetCore.Identity;
 using System.Security.Claims;
+using Microsoft.AspNetCore.Http;
 
 namespace Michelin.Controllers
 {
@@ -57,16 +58,19 @@ namespace Michelin.Controllers
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("naziv,slika,vrijemePripreme,nacionalnoJelo,vrstaJela,vegansko")] Recept recept)
+        public async Task<IActionResult> Create(IFormCollection form,[Bind("naziv,slika,vrijemePripreme,nacionalnoJelo,vrstaJela,vegansko")] Recept recept)
         {
+
             //if (ModelState.IsValid)
             {
                 var id = User.FindFirst(ClaimTypes.NameIdentifier);
                 Korisnik korisnik = await _userManager.GetUserAsync(User);
+                //za id se treba kreirati metoda za generisanje id-a
                 recept.id = new Guid().ToString();
                 recept.autor = korisnik;
                 recept.datum = DateTime.Now;
                 recept.nacinPripreme = new NacinPripreme();
+                recept.nacinPripreme.opisPripreme = form["opis"];
                
                 //ovdje treba razraditi logiku za sastojke
 

@@ -44,15 +44,10 @@
                 <input asp-for="vrijemePripreme" class="form-control" />
                 <span asp-validation-for="vrijemePripreme" class="text-danger"></span>
             </div>
-            <div class="multiline">
-                <ejs-textbox multiline="true" placeholder="Unesite način pripreme recepta" itemid="default"></ejs-textbox> />
+            <div class="form-group">
+               <label for="opis"></label>
+                <input type="text" id="opis" name="opis" /><br />
             </div>
-            <style>
-                multiline{
-                    margin-top: 60px
-                    width: 20%
-                }
-            </style>
             <div class="form-group">
                 <input type="submit" value="Create" class="btn btn-primary" />
             </div>
