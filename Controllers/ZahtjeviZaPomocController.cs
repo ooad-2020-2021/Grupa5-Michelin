@@ -7,16 +7,20 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using Michelin.Data;
 using Michelin.Models;
+using Microsoft.AspNetCore.Identity;
+using System.Security.Claims;
 
 namespace Michelin.Controllers
 {
     public class ZahtjeviZaPomocController : Controller
     {
         private readonly ApplicationDbContext _context;
+        private readonly UserManager<Korisnik> _userManager;
 
-        public ZahtjeviZaPomocController(ApplicationDbContext context)
+        public ZahtjeviZaPomocController(ApplicationDbContext context, UserManager<Korisnik> userManager)
         {
             _context = context;
+            _userManager = userManager;
         }
 
         // GET: ZahtjeviZaPomoc
@@ -54,15 +58,22 @@ namespace Michelin.Controllers
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("id,kategorija,sadrzaj,obradjeno")] ZahtjevZaPomoc zahtjevZaPomoc)
+        public async Task<IActionResult> Create([Bind("kategorija,sadrzaj")] ZahtjevZaPomoc zahtjevZaPomoc)
         {
-            if (ModelState.IsValid)
+            if(ModelState.IsValid)
             {
+                var id = User.FindFirst(ClaimTypes.NameIdentifier);
+                Korisnik korisnik = await _userManager.GetUserAsync(User);
+                //zahtjevZaPomoc.id = generisiId();
+                //zasad ovo za testiranje
+                zahtjevZaPomoc.id = "samo-testni-id" + id;
+                zahtjevZaPomoc.obradjeno = false;
+                zahtjevZaPomoc.korisnik = korisnik;
                 _context.Add(zahtjevZaPomoc);
                 await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
+                
             }
-            return View(zahtjevZaPomoc);
+            return RedirectToAction("SviRecepti", "Home");
         }
 
         // GET: ZahtjeviZaPomoc/Edit/5

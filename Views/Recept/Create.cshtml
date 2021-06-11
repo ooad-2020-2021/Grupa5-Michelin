@@ -26,32 +26,33 @@
                 @Html.DropDownList("Nacionalno jelo: ", Html.GetEnumSelectList<NacionalnoJelo>(),
                "Odaberite nacionalno jelo", new { @class = "form-control" })
                 <span asp-validation-for="nacionalnoJelo" class="text-danger"></span>
+                <div class="form-group">
+                    @Html.DropDownList("Vrsta jela: ", Html.GetEnumSelectList<VrstaJela>(),
+                   "Odaberite vrstu jela", new { @class = "form-control" })
+                    <span asp-validation-for="vrstaJela" class="text-danger"></span>
+                </div>
+                <div class="form-group form-check">
+                    <label class="form-check-label">
+                        <input class="form-check-input" asp-for="vegansko" /> @Html.DisplayNameFor(model => model.vegansko)
+                        <span asp-validation-for="vegansko" class="text-danger"></span>
+                    </label>
+                </div>
             </div>
-            <div class="form-group">
-                @Html.DropDownList("Vrsta jela: ", Html.GetEnumSelectList<VrstaJela>(),
-               "Odaberite vrstu jela", new { @class = "form-control" })
-                <span asp-validation-for="vrstaJela" class="text-danger"></span>
+          
 
-            </div>
-            <div class="form-group form-check">
-                <label class="form-check-label">
-                    <input class="form-check-input" asp-for="vegansko" /> @Html.DisplayNameFor(model => model.vegansko)
-                    <span asp-validation-for="vegansko" class="text-danger"></span>
-                </label>
-            </div>
-            <div class="form-group">
-                <label asp-for="vrijemePripreme" class="control-label"></label>
-                <input asp-for="vrijemePripreme" class="form-control" />
-                <span asp-validation-for="vrijemePripreme" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-               <label for="opis"></label>
-                <input type="text" id="opis" name="opis" /><br />
-            </div>
-            <div class="form-group">
-                <input type="submit" value="Create" class="btn btn-primary" />
-            </div>
-        </form>
+                <div class="form-group">
+                    <label for="opis"></label>
+                    <input type="text" id="opis" name="opis" /><br />
+                </div>
+                <div class="form-group">
+                    <label asp-for="vrijemePripreme" class="control-label"></label>
+                    <input asp-for="vrijemePripreme" class="form-control" />
+                    <span asp-validation-for="vrijemePripreme" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <input type="submit" value="Dalje" class="btn btn-primary" />
+                </div>
+</form>
     </div>
 </div>
 

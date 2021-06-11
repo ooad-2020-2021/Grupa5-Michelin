@@ -7,89 +7,66 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using Michelin.Data;
 using Michelin.Models;
-using Microsoft.AspNetCore.Identity;
-using System.Security.Claims;
-using Microsoft.AspNetCore.Http;
-using Michelin.Interfaces;
-using Michelin.Util;
 
 namespace Michelin.Controllers
 {
-    public class ReceptController : Controller
+    public class SastojakController : Controller
     {
         private readonly ApplicationDbContext _context;
-        private readonly UserManager<Korisnik> _userManager;
-        private List<ISastojak> sastojci;
-        public ReceptController(ApplicationDbContext context, UserManager<Korisnik> userManager)
+
+        public SastojakController(ApplicationDbContext context)
         {
             _context = context;
-            _userManager = userManager;
-            sastojci = new List<ISastojak>();
-
         }
 
-        // GET: Recepts
-        public async Task<IActionResult> Index()
+        public 
+        // GET: Sastojak
+        async Task<IActionResult> Index()
         {
-            return View(await _context.Recept.ToListAsync());
+            return View(await _context.Sastojak.ToListAsync());
         }
 
-        // GET: Recepts/Details/5
-        public async Task<IActionResult> Recept(string id)
+        // GET: Sastojak/Details/5
+        public async Task<IActionResult> Details(string id)
         {
             if (id == null)
             {
                 return NotFound();
             }
 
-            var recept = await _context.Recept
+            var sastojak = await _context.Sastojak
                 .FirstOrDefaultAsync(m => m.id == id);
-            if (recept == null)
+            if (sastojak == null)
             {
                 return NotFound();
             }
 
-            return View(recept);
+            return View(sastojak);
         }
 
-        // GET: Recepts/Create
+        // GET: Sastojak/Create
         public IActionResult Create()
         {
             return View();
         }
 
-        // POST: Recepts/Create
+        // POST: Sastojak/Create
         // To protect from overposting attacks, enable the specific properties you want to bind to, for 
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create(IFormCollection form,[Bind("naziv,slika,vrijemePripreme,nacionalnoJelo,vrstaJela,vegansko")] Recept recept)
+        public async Task<IActionResult> Create([Bind("id,naziv,kolicina,mjernaJedinica")] Sastojak sastojak)
         {
-
-            //if (ModelState.IsValid)
+            if (ModelState.IsValid)
             {
-                var id = User.FindFirst(ClaimTypes.NameIdentifier);
-                Korisnik korisnik = await _userManager.GetUserAsync(User);
-                //za id se treba kreirati metoda za generisanje id-a
-                recept.id = new Guid().ToString();
-                recept.autor = korisnik;
-                recept.datum = DateTime.Now;
-                recept.nacinPripreme = new NacinPripreme();
-                recept.nacinPripreme.opisPripreme = form["opis"];
-               
-                //ovdje treba razraditi logiku za sastojke
-
-
-
-
-                _context.Add(recept);
+                _context.Add(sastojak);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            return RedirectToAction(nameof(Index));
+            return View(sastojak);
         }
 
-        // GET: Recepts/Edit/5
+        // GET: Sastojak/Edit/5
         public async Task<IActionResult> Edit(string id)
         {
             if (id == null)
@@ -97,22 +74,22 @@ namespace Michelin.Controllers
                 return NotFound();
             }
 
-            var recept = await _context.Recept.FindAsync(id);
-            if (recept == null)
+            var sastojak = await _context.Sastojak.FindAsync(id);
+            if (sastojak == null)
             {
                 return NotFound();
             }
-            return View(recept);
+            return View(sastojak);
         }
 
-        // POST: Recepts/Edit/5
+        // POST: Sastojak/Edit/5
         // To protect from overposting attacks, enable the specific properties you want to bind to, for 
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(string id, [Bind("id,naziv,vrijemePripreme,nacionalnoJelo,vrstaJela,vegansko,datum")] Recept recept)
+        public async Task<IActionResult> Edit(string id, [Bind("id,naziv,kolicina,mjernaJedinica")] Sastojak sastojak)
         {
-            if (id != recept.id)
+            if (id != sastojak.id)
             {
                 return NotFound();
             }
@@ -121,12 +98,12 @@ namespace Michelin.Controllers
             {
                 try
                 {
-                    _context.Update(recept);
+                    _context.Update(sastojak);
                     await _context.SaveChangesAsync();
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!ReceptExists(recept.id))
+                    if (!SastojakExists(sastojak.id))
                     {
                         return NotFound();
                     }
@@ -137,10 +114,10 @@ namespace Michelin.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            return View(recept);
+            return View(sastojak);
         }
 
-        // GET: Recepts/Delete/5
+        // GET: Sastojak/Delete/5
         public async Task<IActionResult> Delete(string id)
         {
             if (id == null)
@@ -148,32 +125,30 @@ namespace Michelin.Controllers
                 return NotFound();
             }
 
-            var recept = await _context.Recept
+            var sastojak = await _context.Sastojak
                 .FirstOrDefaultAsync(m => m.id == id);
-            if (recept == null)
+            if (sastojak == null)
             {
                 return NotFound();
             }
 
-            return View(recept);
+            return View(sastojak);
         }
 
-        // POST: Recepts/Delete/5
+        // POST: Sastojak/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(string id)
         {
-            var recept = await _context.Recept.FindAsync(id);
-            _context.Recept.Remove(recept);
+            var sastojak = await _context.Sastojak.FindAsync(id);
+            _context.Sastojak.Remove(sastojak);
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
 
-        private bool ReceptExists(string id)
+        private bool SastojakExists(string id)
         {
-            return _context.Recept.Any(e => e.id == id);
+            return _context.Sastojak.Any(e => e.id == id);
         }
-
-        
     }
 }
