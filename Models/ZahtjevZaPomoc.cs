@@ -25,17 +25,21 @@ namespace Michelin.Models
 
         [Required]
 		[EnumDataType(typeof(KategorijaZahtjevaZaPomoc))]
+		[Display(Name ="Kategorija")]
 		public KategorijaZahtjevaZaPomoc kategorija { get; set; }
 
 		[Required]
-		[StringLength(maximumLength:1000,MinimumLength =50, ErrorMessage ="Problem se mora opisati sa najviše 1000, a " +
-			"najmanje 50 karaktera!")]
+		[StringLength(maximumLength:1000,MinimumLength =30, ErrorMessage ="Problem se mora opisati sa najviše 1000, a " +
+			"najmanje 30 karaktera!")]
+		[Display(Name = "Opis problema")]
 		public string sadrzaj { get; set; }
 
 		[Required]
+		[Display(Name = "Prijavio")]
 		public Korisnik korisnik { get; set; }
 
 		[Required]
+		[Display(Name = "Obrađeno")]
 		public Boolean obradjeno { get; set; }
 
 

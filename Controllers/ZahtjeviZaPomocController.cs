@@ -26,7 +26,15 @@ namespace Michelin.Controllers
         // GET: ZahtjeviZaPomoc
         public async Task<IActionResult> Index()
         {
-            return View(await _context.ZahtjevZaPomoc.ToListAsync());
+            var zahtjevi = await _context.ZahtjevZaPomoc.ToListAsync();
+            zahtjevi.RemoveAll((z) => z.obradjeno == true);
+
+            return View(zahtjevi);
+        }
+
+        public async Task<IActionResult> Greska()
+        {
+            return View();
         }
 
         // GET: ZahtjeviZaPomoc/Details/5
@@ -60,22 +68,28 @@ namespace Michelin.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("kategorija,sadrzaj")] ZahtjevZaPomoc zahtjevZaPomoc)
         {
-            if(ModelState.IsValid)
+            //if(ModelState.IsValid)
             {
                 var id = User.FindFirst(ClaimTypes.NameIdentifier);
                 Korisnik korisnik = await _userManager.GetUserAsync(User);
-                //zahtjevZaPomoc.id = generisiId();
-                //zasad ovo za testiranje
-                zahtjevZaPomoc.id = "samo-testni-id" + id;
                 zahtjevZaPomoc.obradjeno = false;
                 zahtjevZaPomoc.korisnik = korisnik;
                 _context.Add(zahtjevZaPomoc);
                 await _context.SaveChangesAsync();
-                
+
+                return RedirectToAction("SviRecepti", "Home");
             }
-            return RedirectToAction("SviRecepti", "Home");
+            return RedirectToAction("Greska");
         }
 
+        public async  void Obradi(string id)
+        {
+            var zahtjevZaPomoc = await _context.ZahtjevZaPomoc.FindAsync(id);
+            zahtjevZaPomoc.obradjeno = true;
+            _context.Update(zahtjevZaPomoc);
+            await _context.SaveChangesAsync();
+
+        }
         // GET: ZahtjeviZaPomoc/Edit/5
         public async Task<IActionResult> Edit(string id)
         {
