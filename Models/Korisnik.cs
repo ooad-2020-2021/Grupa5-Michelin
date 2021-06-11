@@ -3,15 +3,15 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.ComponentModel.DataAnnotations;
 using Microsoft.AspNetCore.Identity;
+using Michelin.Interfaces;
 
 namespace Michelin.Models
 {
-	public class Korisnik : IdentityUser
+	public class Korisnik : IdentityUser, IPretplatnik
 	{
 
 		#region Properties
 
-		//[Key]
 		[Required]
 		[StringLength(maximumLength: 30, MinimumLength = 3, ErrorMessage = "Korisničko ime se mora sastojati od najmanje 3 i" +
 			"najviše 30 karaktera!")]
@@ -68,13 +68,50 @@ namespace Michelin.Models
 
         #endregion
 
-		public List<Recept> pretvoriStringUListu()
+        #region Metode
+        public List<Recept> pretvoriStringUListu()
         {
 			List<Recept> omiljeni = new List<Recept>();
 			//dohvatiti recepte iz baze kojima odgovaraju primarni kljucevi u stringu
 
 			return omiljeni;
         }
+
+		public void dodajOmiljeniRecept(Recept recept)
+        {
+			//dodavanje recepta u listu omiljenih
+			//posto je lista zapravog string, na njega nadovezati id recepta
+        }
+
+		public void ukloniOmiljeniRecept(Recept recept)
+        {
+			//pronalazi se u string listaOmiljenihRecepata odgovarajuci kljuc(id) recepta
+			//te se uklanja iz stringa
+        }
+
+		public void ukljuciObavijesti()
+        {
+			//dodaje korisnika u pretplatnik repozitorij
+        }
+
+		public void iskljuciObavijesti()
+        {
+			//uklanja korisnika iz pretplatnik repozitorija
+        }
+
+		public void posaljiMail()
+        {
+			//salje korisniku mail sa sadrzajem obavijesti
+			//eventualno se treba dodati da ova metoda prima parametar s tekstom obavijesti
+        }
+
+		public void posaljiPoruku()
+        {
+			//salje korisniku SMS poruku sa sadrzajem obavijesti
+			//eventualno se treba dodati da ova metoda prima parametar s tekstom obavijesti
+		}
+
+        #endregion
     }
 }
 

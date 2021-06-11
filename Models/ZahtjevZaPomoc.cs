@@ -37,11 +37,6 @@ namespace Michelin.Models
 		[Required]
 		public Boolean obradjeno { get; set; }
 
-		//nece nam trebati administrator
-		//zasad zakomentarisimo
-		/*
-		public Administrator administrator { get; set; }
-		*/
 
         #endregion
 

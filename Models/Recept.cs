@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
 namespace Michelin.Models
@@ -44,9 +45,11 @@ namespace Michelin.Models
 	public class Recept
 	{
         #region Properties
+
+		/*zasad necemo stavljati ovaj atribut, jer se mora rucno unijeti, mozda se generise id sam, kad se tabela kreira
 		[Key]
 		[Required]
-		public string id { get; set; }
+		public string id { get; set; }*/
 
         [Required]
 		[StringLength(maximumLength:30,MinimumLength =3,
@@ -96,6 +99,48 @@ namespace Michelin.Models
 
 		public Recept() { }
 
+        #endregion
+
+        #region Metode
+		public Double izracunajOcjenu()
+        {
+			//dobavljaju se sve Ocjene ciji atribut recept odgovara ovom
+			//te se racuna prosjecna ocjena recepta na osnovu njih
+			//zasad vraca 5.0 dok se ne implementira metoda
+
+			return 5.0;
+        }
+
+		public static List<Recept> filtrirajRecepte(List<VrstaJela> vrstaJela,List<NacionalnoJelo> nacionalnoJelo,
+			int vrijemePripreme, List<Recept> listaZaFiltriranje)
+        {
+			//prima listu recepata koju treba filtirati tako da zadovoljava da atribut vrstaJela se nalazi
+			//u proslijedjenoj listi i atribut nacionalnoJelo se nalazi u odgovarajucoj listi
+			//te da je vrijeme pripreme do proslijedjenog parametra (npr ako je proslijedjeno 50, priprema mora biti<=50min)
+
+			return listaZaFiltriranje;
+        }
+
+		public static List<Recept> dajReceptePoNazivu(String naziv)
+        {
+			//vraca sve recepte koji u nazivu sadrze proslijedjeni string
+
+			return new List<Recept>();
+        }
+
+		public static List<Recept> dajRecepteBezSastojaka(List<Sastojak> sastojci)
+        {
+			//vraca sve recepte koji ne sadrze niti jedan od sastojaka u proslijedjenoj listi
+			//poredjenje sastojaka se treba vrsiti po nazivu
+			return new List<Recept>();
+		}
+
+		public static List<Recept> dajDesetNajboljih()
+        {
+			//vraca 10 recepata sa trenutno najboljom ocjenom
+
+			return new List<Recept>();
+		}
         #endregion
     }
 }

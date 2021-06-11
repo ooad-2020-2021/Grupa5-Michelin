@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Michelin.Interfaces;
+using System;
 using System.ComponentModel.DataAnnotations;
 
 
@@ -17,7 +18,7 @@ namespace Michelin.Models
 		[Display(Name = "komad")]
 		komad
     }
-	public class Sastojak
+	public class Sastojak : ISastojak, IPrototip
 	{
         #region Properties
 
@@ -47,6 +48,17 @@ namespace Michelin.Models
         }
 
 		public Sastojak() { }
+
+        public string dajNaziv()
+        {
+			return naziv;
+        }
+
+        public IPrototip kloniraj()
+        {
+			//pravi plitku kopija od objekta i vraca je
+            throw new NotImplementedException();
+        }
         #endregion
 
     }
