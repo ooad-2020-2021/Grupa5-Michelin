@@ -1,0 +1,23 @@
+﻿@model Recept
+@{
+
+}
+<tr>
+
+    <td>
+        <img src="/uploads/@Model.slika" class="figure-img" height="200" />
+    </td>
+    <td style="color:antiquewhite">
+        <h4 style="color:antiquewhite">
+            @Html.DisplayFor(modelItem => @Model.naziv)
+        </h4>
+        @Html.DisplayFor(modelItem => @Model.nacionalnoJelo) <br />
+        @Html.DisplayFor(modelItem => @Model.vrstaJela) <br />
+        @Html.DisplayFor(modelItem => @Model.vrijemePripreme) min <br />
+        Objavio:
+        @Html.DisplayFor(modelItem => @Model.autor.korisnickoIme)
+    </td>
+    <td>
+        <a style="color:antiquewhite" asp-controller="Recept" asp-action="Details" asp-route-id="@Model.id">Otvori</a>
+    </td>
+</tr>

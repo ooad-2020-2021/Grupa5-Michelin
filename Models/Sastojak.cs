@@ -56,8 +56,7 @@ namespace Michelin.Models
 
         public IPrototip kloniraj()
         {
-			//pravi plitku kopija od objekta i vraca je
-            throw new NotImplementedException();
+			return (IPrototip)this.MemberwiseClone();
         }
         #endregion
 

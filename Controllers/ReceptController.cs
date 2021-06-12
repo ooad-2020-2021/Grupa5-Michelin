@@ -23,13 +23,12 @@ namespace Michelin.Controllers
         private readonly IUnitOfWork _unitOfWork;
         private readonly ApplicationDbContext _context;
         private readonly UserManager<Korisnik> _userManager;
-        
-        private List<ISastojak> sastojci;
+        private List<Sastojak> sastojci;
         public ReceptController(ApplicationDbContext context, UserManager<Korisnik> userManager, IUnitOfWork unitOfWork)
         {
             _context = context;
             _userManager = userManager;
-            sastojci = new List<ISastojak>();
+            sastojci = new List<Sastojak>();
             _unitOfWork = unitOfWork;
         }
 
@@ -86,14 +85,16 @@ namespace Michelin.Controllers
                 recept.nacinPripreme.id = recept.id;
                 recept.nacinPripreme.opisPripreme = form["opis"];
 
-                //ovdje treba razraditi logiku za sastojke
-
-
-
+                string kljucevi = "";
+                foreach(Sastojak s in sastojci)
+                {
+                    kljucevi += s.id + " ";
+                }
+                recept.nacinPripreme.listaSastojaka = kljucevi;
                 _context.Add(recept.nacinPripreme);
                 _context.Add(recept);
                 await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
+                return RedirectToAction("DodajSastojke","Recept",recept.id);
             }
             return RedirectToAction("SviRecepti");
         }
@@ -183,6 +184,28 @@ namespace Michelin.Controllers
             return _context.Recept.Any(e => e.id == id);
         }
 
+        [Route("DodajSastojke/")]
+        public async Task<IActionResult> DodajSastojke(string id)
+        {
+            return View();
+        }
+        
+        [HttpPost]
+        [Route("DodajSastojke/")]
+        public async Task<IActionResult>  DodajSastojke(IFormCollection form)
+        {
+            string naziv = form["nazivSastojka"].ToString();
+            double kolicina = Double.Parse(form["kolicina"].ToString());
+            MjernaJedinica mjerna = (MjernaJedinica)Enum.Parse(typeof(MjernaJedinica), form["mjerna"]);
+
+            Sastojak sastojak = (Sastojak)BazaSastojaka.getInstance().dodajUBazuSastojaka(naziv, kolicina, mjerna);
+            sastojci.Add(sastojak);
+            string id = form["id"];
+            var recept = _context.Find<Recept>(id);
+            recept.nacinPripreme.listaSastojaka += sastojak.id + " ";
+            return RedirectToAction("DodajSastojke", "Recept", recept.id);
+            
+        }
         
     }
 }

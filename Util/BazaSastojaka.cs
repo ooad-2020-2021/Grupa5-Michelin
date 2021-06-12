@@ -24,18 +24,28 @@ namespace Michelin.Util
         #endregion
 
         #region Metode
-        public BazaSastojaka getInstance()
+        public static BazaSastojaka getInstance()
         {
             return bazaSastojaka;
         }
-        public ISastojak dodajUBazuSastojaka(String naziv, MjernaJedinica mjernaJedinica)
+        public ISastojak dodajUBazuSastojaka(String naziv,double kolicina, MjernaJedinica mjernaJedinica)
         {
             //provjerava da li u listaSastojaka postoji ISastojak s istim nazivom i mjernom jedinicom i
             //ako postoji, klonira ga i vraca njegovu kopiju kao povratnu vrijednost
             //ako ne postoji, kreira novi Sastojak i eventualno korigira naziv tako da pocinje velikim slovom
             // a ostala su mala, te taj novi Sastojak dodaje u listaSastojaka i vraca ga kao povratnu vrijednost
 
-           throw new NotImplementedException();
+           string modifikovanNaziv = naziv.ToLowerInvariant();
+            foreach(ISastojak s in listaSastojaka)
+            {
+                if (s.dajNaziv().Equals(naziv))
+                {
+                    return (ISastojak)s.kloniraj();
+                }
+
+            }
+
+            return new Sastojak(modifikovanNaziv, kolicina, mjernaJedinica);
             
         }
         #endregion

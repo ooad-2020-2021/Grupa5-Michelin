@@ -6,7 +6,7 @@ using Michelin.Models;
 
 namespace Michelin.Interfaces
 {
-    public interface ISastojak
+    public interface ISastojak : IPrototip
     {
         String dajNaziv();
 
