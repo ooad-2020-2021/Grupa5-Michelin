@@ -9,27 +9,27 @@
             <tbody>
                 @foreach (var item in Model)
                 {
-                <tr>
+                    <tr>
 
-                    <td>
-                        <img src="/uploads/@item.slika" class="figure-img" height="200" />
-                    </td>
-                    <td style="color:antiquewhite">
-                        <h4 style="color:antiquewhite">
-                            @Html.DisplayFor(modelItem => item.naziv)
-                        </h4>
-                        @Html.DisplayFor(modelItem => item.nacionalnoJelo) <br />
-                        @Html.DisplayFor(modelItem => item.vrstaJela) <br />
-                        @Html.DisplayFor(modelItem => item.vrijemePripreme) min <br />
-                        Objavio:
-                        @Html.DisplayFor(modelItem => item.autor.korisnickoIme)
-                    </td>
-                    <td>
-                        <a style="color:antiquewhite" asp-action="Details" asp-route-id="@item.id">Otvori</a>
-                    </td>
-                </tr>
+                        <td>
+                            <img src="/uploads/@item.slika" class="figure-img" height="200" />
+                        </td>
+                        <td style="color:antiquewhite">
+                            <h4 style="color:antiquewhite">
+                                @Html.DisplayFor(modelItem => item.naziv)
+                            </h4>
+                            @Html.DisplayFor(modelItem => item.nacionalnoJelo) <br />
+                            @Html.DisplayFor(modelItem => item.vrstaJela) <br />
+                            @Html.DisplayFor(modelItem => item.vrijemePripreme) min <br />
+                            Objavio:
+                            @Html.DisplayFor(modelItem => item.autor.korisnickoIme)
+                        </td>
+                        <td>
+                            <a style="color:antiquewhite" asp-controller="Recept" asp-action="Details" asp-route-id="@item.id">Otvori</a>
+                        </td>
+                    </tr>
                 }
             </tbody>
-            </table>
-</div>
+        </table>
+    </div>
 </body>
