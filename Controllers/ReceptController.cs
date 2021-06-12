@@ -75,7 +75,7 @@ namespace Michelin.Controllers
             {
                 using var image = Image.Load(file.OpenReadStream());
                 image.Mutate(x => x.Resize(50, 50));
-                image.Save(file.FileName);
+                _unitOfWork.UploadImage(file);
                 recept.slika = file.FileName;
                 var id = User.FindFirst(ClaimTypes.NameIdentifier);
                 Korisnik korisnik = await _userManager.GetUserAsync(User);
@@ -83,6 +83,7 @@ namespace Michelin.Controllers
                 recept.autor = korisnik;
                 recept.datum = DateTime.Now;
                 recept.nacinPripreme = new NacinPripreme();
+                recept.nacinPripreme.id = recept.id;
                 recept.nacinPripreme.opisPripreme = form["opis"];
 
                 //ovdje treba razraditi logiku za sastojke
