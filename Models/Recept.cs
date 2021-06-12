@@ -107,13 +107,25 @@ namespace Michelin.Models
         #endregion
 
         #region Metode
-		public Double izracunajOcjenu()
+		public Double izracunajOcjenu(List<Ocjena> ocjene)
         {
 			//dobavljaju se sve Ocjene ciji atribut recept odgovara ovom
 			//te se racuna prosjecna ocjena recepta na osnovu njih
 			//zasad vraca 5.0 dok se ne implementira metoda
+			Double ocjena = 0.0;
+			int broj = 0;
 
-			return 5.0;
+			foreach(Ocjena o in ocjene)
+            {
+                if (o.recept.id == id)
+                {
+					ocjena += o.vrijednost;
+					broj++;
+                }
+            }
+			if (broj > 0)
+				return ocjena / broj;
+			return 0.0;
         }
 
 		public static List<Recept> filtrirajRecepte(List<VrstaJela> vrstaJela,List<NacionalnoJelo> nacionalnoJelo,
@@ -140,11 +152,12 @@ namespace Michelin.Models
 			return new List<Recept>();
 		}
 
-		public static List<Recept> dajDesetNajboljih()
+		public static List<Recept> dajDesetNajboljih(List<Recept> recepti,List<Ocjena> ocjene)
         {
-			//vraca 10 recepata sa trenutno najboljom ocjenom
+			recepti.Sort((x, y) => x.izracunajOcjenu(ocjene).CompareTo(y.izracunajOcjenu(ocjene)));
 
-			return new List<Recept>();
+			recepti.RemoveRange(9, recepti.Count-10);
+			return recepti;
 		}
 
 		

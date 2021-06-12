@@ -6,65 +6,21 @@
 
 <body class="backgroundimg">
     <div class="container">
-        <h1 style="color=antiquewhite">NajboljiRecepti</h1>
-
-        <p>
-            <a asp-action="Create">Create New</a>
-        </p>
-        <table class="table">
-            <thead>
-                <tr>
-                    <th>
-                        @Html.DisplayNameFor(model => model.naziv)
-                    </th>
-                    <th>
-                        @Html.DisplayNameFor(model => model.vrijemePripreme)
-                    </th>
-                    <th>
-                        @Html.DisplayNameFor(model => model.nacionalnoJelo)
-                    </th>
-                    <th>
-                        @Html.DisplayNameFor(model => model.vrstaJela)
-                    </th>
-                    <th>
-                        @Html.DisplayNameFor(model => model.vegansko)
-                    </th>
-                    <th>
-                        @Html.DisplayNameFor(model => model.datum)
-                    </th>
-                    <th></th>
-                </tr>
-            </thead>
-            <tbody>
-                @foreach (var item in Model)
-                {
-                    <tr>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.naziv)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.vrijemePripreme)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.nacionalnoJelo)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.vrstaJela)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.vegansko)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.datum)
-                        </td>
-                        <td>
-                            <a asp-action="Edit" asp-route-id="@item.id">Edit</a> |
-                            <a asp-action="Details" asp-route-id="@item.id">Details</a> |
-                            <a asp-action="Delete" asp-route-id="@item.id">Delete</a>
-                        </td>
-                    </tr>
-                }
-            </tbody>
+        <nav>
+            <div class="nav nav-tabs" id="nav-tab" role="tablist">
+                <a class="nav-item nav-link active" id="nav-svi-tab" asp-action="SviRecepti" asp-controller="Home">Svi recepti</a>
+                <a class="nav-item nav-link active" id="nav-svi-tab" asp-action="NajboljiRecepti" asp-controller="Home">Najbolji recepti</a>
+                <a class="nav-item nav-link active" id="nav-svi-tab" asp-action="Filtriranje" asp-controller="Recept">Pretraga recepata</a>
+            </div>
+        </nav>
+            <table class="table">
+                <tbody>
+                    @foreach (var item in Model)
+                    {
+                        <partial name="_ReceptiPartial" model="item" />
+                    }
+                </tbody>
+            </table>
         </table>
-        </div>
+    </div>
     </body>

@@ -184,6 +184,20 @@ namespace Michelin.Controllers
             return _context.Recept.Any(e => e.id == id);
         }
 
+        public async Task<IActionResult> Filtriranje()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Filtriranje(string[] str)
+        {
+            List<Recept> recepti = await _context.Recept.ToListAsync();
+            
+
+            return RedirectToAction("SviRecepti","Recept",recepti);
+        }
+
         [Route("DodajSastojke/")]
         public async Task<IActionResult> DodajSastojke(string id)
         {

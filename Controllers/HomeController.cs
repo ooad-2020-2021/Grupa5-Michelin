@@ -27,9 +27,10 @@ namespace Michelin.Controllers
             return View(await _context.Recept.ToListAsync());
         }
 
-        public IActionResult NajboljiRecepti()
+        public async Task<IActionResult> NajboljiRecepti()
         {
-            return View();
+
+            return View(Recept.dajDesetNajboljih(await _context.Recept.ToListAsync(),await _context.Ocjena.ToListAsync()));
         }
 
 

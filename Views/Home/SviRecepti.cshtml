@@ -6,6 +6,13 @@
 <body class="backgroundimg">
     <div class="container">
         <div class="container">
+            <nav>
+                <div class="nav nav-tabs" id="nav-tab" role="tablist">
+                    <a class="nav-item nav-link active" id="nav-svi-tab" asp-action="SviRecepti" asp-controller="Home">Svi recepti</a>
+                    <a class="nav-item nav-link active" id="nav-svi-tab" asp-action="NajboljiRecepti" asp-controller="Home">Najbolji recepti</a>
+                    <a class="nav-item nav-link active" id="nav-svi-tab" asp-action="Filtriranje" asp-controller="Recept">Pretraga recepata</a>
+                </div>           
+            </nav>
         <table class="table">
             <tbody>
                 @foreach (var item in Model)
@@ -15,8 +22,6 @@
             </tbody>
         </table>
             </div>
-        <container>
-
-        </container>
+      
     </div>
 </body>
