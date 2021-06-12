@@ -13,6 +13,8 @@ using Microsoft.AspNetCore.Http;
 using Michelin.Interfaces;
 using Michelin.Util;
 using Michelin.Infrastructure;
+using SixLabors.ImageSharp;
+using SixLabors.ImageSharp.Processing;
 
 namespace Michelin.Controllers
 {
@@ -38,7 +40,7 @@ namespace Michelin.Controllers
         }
 
         // GET: Recepts/Details/5
-        public async Task<IActionResult> Recept(string id)
+        public async Task<IActionResult> Details(string id)
         {
             if (id == null)
             {
@@ -69,9 +71,11 @@ namespace Michelin.Controllers
         public async Task<IActionResult> Create(IFormFile file,IFormCollection form,[Bind("naziv,vrijemePripreme,nacionalnoJelo,vrstaJela,vegansko")] Recept recept)
         {
 
-            if (ModelState.IsValid)
+            //if (ModelState.IsValid)
             {
-                _unitOfWork.UploadImage(file);
+                using var image = Image.Load(file.OpenReadStream());
+                image.Mutate(x => x.Resize(50, 50));
+                image.Save(file.FileName);
                 recept.slika = file.FileName;
                 var id = User.FindFirst(ClaimTypes.NameIdentifier);
                 Korisnik korisnik = await _userManager.GetUserAsync(User);
@@ -90,7 +94,7 @@ namespace Michelin.Controllers
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            return RedirectToAction(nameof(Index));
+            return RedirectToAction("SviRecepti");
         }
 
         // GET: Recepts/Edit/5

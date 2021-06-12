@@ -1,5 +1,7 @@
-﻿using Michelin.Models;
+﻿using Michelin.Data;
+using Michelin.Models;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;
@@ -12,15 +14,17 @@ namespace Michelin.Controllers
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;
+        private readonly ApplicationDbContext _context;
 
-        public HomeController(ILogger<HomeController> logger)
+        public HomeController(ApplicationDbContext context,ILogger<HomeController> logger)
         {
+            _context = context;
             _logger = logger;
         }
 
-        public IActionResult SviRecepti()
+        public async Task<IActionResult> SviRecepti()
         {
-            return View();
+            return View(await _context.Recept.ToListAsync());
         }
 
         public IActionResult NajboljiRecepti()
