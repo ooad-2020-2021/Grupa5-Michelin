@@ -26,6 +26,7 @@ namespace Michelin.Controllers
         public async Task<IActionResult> SviRecepti()
         {
             ViewBag.korisnici = await _context.Korisnik.ToListAsync();
+            ViewBag.ocjene = await _context.Ocjena.ToListAsync();
             return View(await _context.Recept.ToListAsync());
         }
 
@@ -39,7 +40,7 @@ namespace Michelin.Controllers
                  recepti.Add(r.recept);
              }*/
 
-
+            ViewBag.ocjene = await _context.Ocjena.ToListAsync();
             ViewBag.korisnici = await _context.Korisnik.ToListAsync();
             return View(Recept.dajDesetNajboljih(await _context.Recept.ToListAsync(), await _context.Ocjena.ToListAsync())); 
         }

@@ -24,18 +24,37 @@
                 <br />
 
                 <h4>Korisnikovi recepti:</h4>
-                
-                    <div class="overflow-auto" style="height:500px;width:700px;border:2px solid #000;">
-                        <table class="table" style="column-width: 80px;background-image: url(https://i.pinimg.com/736x/85/c2/bc/85c2bc5117b432014f3f894845d43323.jpg)">
-                            <tbody>
-                                @foreach (var item in Model.dajKorisnikoveRecepte(ViewBag.recepti))
-                                {
-                                    <partial name="_ReceptiPartial" model="item" />
-                                }
-                            </tbody>
-                        </table>
-                    </div>
-               
+
+                <div class="overflow-auto" style="height:500px;width:700px;border:2px solid #000;">
+                    <table class="table" style="column-width: 80px;background-image: url(https://i.pinimg.com/736x/85/c2/bc/85c2bc5117b432014f3f894845d43323.jpg)">
+                        <tbody>
+                            @foreach (var item in Model.dajKorisnikoveRecepte(ViewBag.recepti))
+                            {
+                                List<Korisnik> korisnici = ViewBag.korisnici;
+                                var korisnik = korisnici.Find(k => item.autor == k);
+                                ViewBag.korisnik = korisnik;
+                                <partial name="_ReceptiPartial" model="item" />
+                            }
+                        </tbody>
+                    </table>
+                </div> <br />
+
+                <h4>Omiljeni recepti:</h4>
+
+                <div class="overflow-auto" style="height:500px;width:700px;border:2px solid #000;">
+                    <table class="table" style="column-width: 80px;background-image: url(https://i.pinimg.com/736x/85/c2/bc/85c2bc5117b432014f3f894845d43323.jpg)">
+                        <tbody>
+                            @foreach (var item in Model.pretvoriStringUListu())
+                            {
+                                List<Korisnik> korisnici = ViewBag.korisnici;
+                                var korisnik = korisnici.Find(k => item.autor == k);
+                                ViewBag.korisnik = korisnik;
+                                <partial name="_ReceptiPartial" model="item" />
+                            }
+                        </tbody>
+                    </table>
+                </div>
+
             </div>
         </div>
 

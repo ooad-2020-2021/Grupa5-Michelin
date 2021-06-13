@@ -1,6 +1,6 @@
 ﻿@model Recept
 @{
-
+    
 }
 <tr>
 
@@ -14,8 +14,9 @@
         @Html.DisplayFor(modelItem => @Model.nacionalnoJelo) <br />
         @Html.DisplayFor(modelItem => @Model.vrstaJela) <br />
         @Html.DisplayFor(modelItem => @Model.vrijemePripreme) min <br />
-        Objavio:
-        @Html.DisplayFor(modelItem => @Model.autor.korisnickoIme)
+        Objavio: @ViewBag.korisnik <br />
+        Ocjena: @Model.izracunajOcjenu(@ViewBag.ocjene)
+
     </td>
     <td>
         <a style="color:antiquewhite" asp-controller="Recept" asp-action="Details" asp-route-id="@Model.id">Otvori</a>

@@ -50,6 +50,17 @@ namespace Michelin.Controllers
                 return NotFound();
             }
 
+            List<Korisnik> korisnici = await _context.Korisnik.ToListAsync();
+            var korisnik = korisnici.Find(k => recept.autor == k);
+            List<NacinPripreme> nacini = await _context.NacinPripreme.ToListAsync();
+            var nacinPripreme = nacini.Find(n => recept.nacinPripreme == n);
+            Korisnik trenutni = await _userManager.GetUserAsync(User);
+
+            ViewBag.korisnik = korisnik.korisnickoIme;
+            ViewBag.nacin = nacinPripreme.opisPripreme;
+            ViewBag.ocjene = await _context.Ocjena.ToListAsync();
+            ViewBag.trenutni = trenutni;
+
             return View(recept);
         }
 
@@ -227,6 +238,44 @@ namespace Michelin.Controllers
             return RedirectToAction("DodajSastojke", "Recept", recept.id);
             
         }
-        
+
+        public async Task<IActionResult> dodajUOmiljene(string id)
+        {
+           
+            Korisnik korisnik = await _userManager.GetUserAsync(User);
+            Recept recept = await _context.Recept.FindAsync(id);
+            korisnik.dodajOmiljeniRecept(recept);
+
+            return RedirectToAction("Details", "Recept", id);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> ocijeniRecept(string id, IFormCollection form)
+        {
+            
+            string ocjena = form["ocjena"];
+          
+            Recept recept = await _context.Recept.FindAsync(id);
+            Korisnik korisnik = await _userManager.GetUserAsync(User);
+            Double vrijednost = Double.Parse(ocjena);
+
+            List<Ocjena> ocjene = await _context.Ocjena.ToListAsync();
+
+            foreach(Ocjena o in ocjene)
+            {
+                if (o.korisnik==korisnik && o.recept==recept)
+                {
+                    o.vrijednost = vrijednost;
+                    _context.Update(o);
+                    await _context.SaveChangesAsync();
+                    return RedirectToAction("SviRecepti", "Home");
+                }
+            }
+
+            _context.Add<Ocjena>(new Ocjena(korisnik, recept, vrijednost));
+            await _context.SaveChangesAsync();
+            return RedirectToAction("SviRecepti", "Home");
+            return RedirectToAction("Details", "Recept", id);
+        }
     }
 }

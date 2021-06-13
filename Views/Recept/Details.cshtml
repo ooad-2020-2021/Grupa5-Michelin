@@ -7,14 +7,44 @@
 
 <body class="backgroundimg">
     <div class="container">
-        <img align="left" src="/uploads/@Model.slika" class="figure-img" height="200"  /> 
+        <div style="float:left">
+            <img align="left" src="/uploads/@Model.slika" class="figure-img" style="height:300px;width:300px" /> <br />
+            <h4 style="font:bold;color:antiquewhite;">Ocjena: @Model.izracunajOcjenu(ViewBag.ocjene)</h4> <br />
+            @if (@Model.autor != @ViewBag.trenutni && User.IsInRole("Korisnik"))
+            {
+            
+            <input type="button" value="Dodaj u omiljene" asp-controller="Recept" asp-action="dodajUOmiljene" asp-route-id="@Model.id" /> <br /> <br />
+            <input type="hidden" value="id" />
+            <form method="post" asp-action="ocijeniRecept" asp-controller="Recept" asp-route-id="@Model.id" >
+            <input type="radio" value="1" id="1" name="ocjena" /> <label style="color:antiquewhite"> 1 </label>
+            <input type="radio" value="2" id="2" name="ocjena" /> <label style="color:antiquewhite"> 2 </label>
+            <input type="radio" value="3" id="3" name="ocjena" /> <label style="color:antiquewhite"> 3 </label>
+            <input type="radio" value="4" id="4" name="ocjena" /> <label style="color:antiquewhite"> 4 </label>
+            <input type="radio" value="5" id="5" name="ocjena" /> <label style="color:antiquewhite"> 5 </label> <br />
+            <input type="submit" runat="server" value="Ocijeni" />
+            </form>
+            }
+        </div>
         
-        
-            <h3 style="color:antiquewhite">
-                 @Html.DisplayFor(modelItem => @Model.naziv)
-            </h3>
-            <label align="bottom" style="color:antiquewhite">@Html.DisplayFor(modelItem => @Model.nacionalnoJelo) </label> <br />
-           
+        <div style="float:right;width:500px;align-content:center">
+            <p >
+                <h3 style="color:antiquewhite">
+                    @Html.DisplayFor(modelItem => @Model.naziv)
+                </h3>
+                <label style="color:antiquewhite">@Html.DisplayFor(modelItem => @Model.nacionalnoJelo) </label> <br />
+                <label style="color:antiquewhite">@Html.DisplayFor(modelItem => @Model.vrstaJela) </label> <br />
+                @if (@Model.vegansko)
+                {
+                    <label style="color:antiquewhite">Vegan</label> <br />
+                }
+                <label style="color:antiquewhite">@Html.DisplayNameFor(modelItem => @Model.autor): @ViewBag.korisnik</label> <br />
+                <label style="color:antiquewhite">@Html.DisplayFor(modelItem => @Model.datum)</label> <br />
+            </p>
+            <p>
+                <h4 style="color:antiquewhite">Način pripreme:</h4> <br />
+                <label style="color:antiquewhite">@ViewBag.nacin</label>
+            </p>
+        </div>
         
     </div>
 </body>

@@ -19,6 +19,7 @@
                 {
                     List<Korisnik> korisnici = ViewBag.korisnici;
                     var korisnik = korisnici.Find(k => item.autor == k);
+                    ViewBag.korisnik = korisnik;
                     <partial name="_ReceptiPartial" model="item" data="korisnik" />
                 }
             </tbody>

@@ -124,7 +124,7 @@ namespace Michelin.Models
 
 			foreach(Ocjena o in ocjene)
             {
-                if (o.recept.id == id)
+                if (o.recept == this)
                 {
 					ocjena += o.vrijednost;
 					broj++;
