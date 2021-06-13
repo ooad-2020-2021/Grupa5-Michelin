@@ -57,7 +57,7 @@ namespace Michelin.Controllers
             var nacinPripreme = nacini.Find(n => recept.nacinPripreme == n);
             Korisnik trenutni = await _userManager.GetUserAsync(User);
 
-            ViewBag.korisnik = korisnik.korisnickoIme;
+            ViewBag.korisnik = korisnik;
             ViewBag.nacin = nacinPripreme.opisPripreme;
             ViewBag.ocjene = await _context.Ocjena.ToListAsync();
             ViewBag.trenutni = trenutni;

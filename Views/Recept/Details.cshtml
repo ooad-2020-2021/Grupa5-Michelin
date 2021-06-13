@@ -37,7 +37,7 @@
                 {
                     <label style="color:antiquewhite">Vegan</label> <br />
                 }
-                <label style="color:antiquewhite">@Html.DisplayNameFor(modelItem => @Model.autor): @ViewBag.korisnik</label> <br />
+            <label style="color:antiquewhite">@Html.DisplayNameFor(modelItem => @Model.autor): <a style="color:antiquewhite" asp-action="Details" asp-controller="Korisnik" asp-route-id="@ViewBag.korisnik.Id">@ViewBag.korisnik</a> <br /></label> <br />
                 <label style="color:antiquewhite">@Html.DisplayFor(modelItem => @Model.datum)</label> <br />
             </p>
             <p>

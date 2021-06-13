@@ -14,7 +14,7 @@
         @Html.DisplayFor(modelItem => @Model.nacionalnoJelo) <br />
         @Html.DisplayFor(modelItem => @Model.vrstaJela) <br />
         @Html.DisplayFor(modelItem => @Model.vrijemePripreme) min <br />
-        Objavio: @ViewBag.korisnik <br />
+        Objavio: <a style="color:antiquewhite" asp-action="Details" asp-controller="Korisnik" asp-route-id="@ViewBag.korisnik.Id">@ViewBag.korisnik</a> <br />
         Ocjena: @Model.izracunajOcjenu(@ViewBag.ocjene)
 
     </td>

@@ -63,6 +63,17 @@ namespace Michelin.Controllers
             return View(korisnik);
         }
 
+        public async Task<IActionResult> Details(string id)
+        {
+            //var id = User.FindFirst(ClaimTypes.NameIdentifier);
+            //Korisnik korisnik = await _userManager.GetUserAsync(User);
+            Korisnik korisnik = _context.Korisnik.Find(id);
+            ViewBag.recepti = await _context.Recept.ToListAsync();
+            ViewBag.korisnici = await _context.Korisnik.ToListAsync();
+            ViewBag.ocjene = await _context.Ocjena.ToListAsync();
+            return View("Profil",korisnik);
+        }
+
         // GET: Korisnik/Create
         [Authorize]
         public IActionResult Create()

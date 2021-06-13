@@ -10,7 +10,14 @@
         <div class="row">
             <div class="col-md-4" style="background-color: antiquewhite">
                 </br>
-                <img src="/uploads/@Model.profilnaSlika" class="figure-img" height="250" />
+                @if (@Model.profilnaSlika != null && @Model.profilnaSlika != "")
+                {
+                    <img src="/uploads/@Model.profilnaSlika" class="figure-img" style="height:300px;width:300px" />
+                }
+                else
+                {
+                    <img src="/uploads/profil.jpg" class="figure-img" style="height:300px;width:300px" />
+                }
                 <h4>@Model.korisnickoIme</h4>
             </div>
             <div class="col-md-8" style="background-color: antiquewhite">
