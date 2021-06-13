@@ -36,6 +36,7 @@ namespace Michelin.Controllers
         
 
         // GET: Recepts/Details/5
+        [Authorize]
         public async Task<IActionResult> Details(string id)
         {
             if (id == null)
@@ -244,7 +245,13 @@ namespace Michelin.Controllers
            
             Korisnik korisnik = await _userManager.GetUserAsync(User);
             Recept recept = await _context.Recept.FindAsync(id);
-            korisnik.dodajOmiljeniRecept(recept);
+            var omiljeni = korisnik.pretvoriStringUListu(await _context.Recept.ToListAsync());
+
+            if (!(omiljeni.Contains(recept)))
+            {
+                korisnik.dodajOmiljeniRecept(recept);
+               
+            }
 
             return RedirectToAction("Details", "Recept", id);
         }

@@ -185,7 +185,7 @@ namespace Michelin.Models
 
 		public static List<Recept> dajDesetNajboljih(List<Recept> recepti,List<Ocjena> ocjene)
         {
-			recepti.Sort((x, y) => x.izracunajOcjenu(ocjene).CompareTo(y.izracunajOcjenu(ocjene)));
+			recepti.Sort((x, y) => y.izracunajOcjenu(ocjene).CompareTo(x.izracunajOcjenu(ocjene)));
 
             if (recepti.Count > 10) 
 			recepti.RemoveRange(9, recepti.Count-10);

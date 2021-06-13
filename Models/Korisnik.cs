@@ -53,7 +53,7 @@ namespace Michelin.Models
 		public Boolean aktivan { get; set; }
 
 
-		public string omiljeniRecepti { get; set; }
+		public string omiljeniRecepti { get; set; } = new string("");
 
 		public string profilnaSlika {get; set;}
 
@@ -75,10 +75,18 @@ namespace Michelin.Models
         #endregion
 
         #region Metode
-        public List<Recept> pretvoriStringUListu()
+        public List<Recept> pretvoriStringUListu(List<Recept> recepti)
         {
+			
 			List<Recept> omiljeni = new List<Recept>();
-			//dohvatiti recepte iz baze kojima odgovaraju primarni kljucevi u stringu
+			if (omiljeniRecepti == null) return omiljeni;
+			string[] ids = omiljeniRecepti.Split(" ");
+
+			foreach(string id in ids)
+            {
+				omiljeni.Add(recepti.Find(r=>r.id==id));
+            }
+			
 
 			return omiljeni;
         }
@@ -95,8 +103,8 @@ namespace Michelin.Models
         }
 		public void dodajOmiljeniRecept(Recept recept)
         {
-			//dodavanje recepta u listu omiljenih
-			//posto je lista zapravog string, na njega nadovezati id recepta
+			if (omiljeniRecepti == null) omiljeniRecepti = new string("");
+			omiljeniRecepti += " " + recept.id;
         }
 
 		public void ukloniOmiljeniRecept(Recept recept)

@@ -44,7 +44,7 @@
                 <div class="overflow-auto" style="height:500px;width:700px;border:2px solid #000;">
                     <table class="table" style="column-width: 80px;background-image: url(https://i.pinimg.com/736x/85/c2/bc/85c2bc5117b432014f3f894845d43323.jpg)">
                         <tbody>
-                            @foreach (var item in Model.pretvoriStringUListu())
+                            @foreach (var item in Model.pretvoriStringUListu(ViewBag.recepti))
                             {
                                 List<Korisnik> korisnici = ViewBag.korisnici;
                                 var korisnik = korisnici.Find(k => item.autor == k);

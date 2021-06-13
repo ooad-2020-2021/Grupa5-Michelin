@@ -19,7 +19,9 @@
 
     </td>
     <td>
+        @if (User.Identity.IsAuthenticated) { 
         <a style="color:antiquewhite" asp-controller="Recept" asp-action="Details" asp-route-id="@Model.id">Otvori</a>
+        }
         @if (User.IsInRole("Administrator"))
         {
             <a style="color:antiquewhite" asp-controller="Recept" asp-action="Delete" asp-route-id="@Model.id"> | Obriši</a>
