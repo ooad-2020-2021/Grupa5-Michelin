@@ -15,8 +15,7 @@ namespace Michelin.Models {
 		public string listaSastojaka { get; set; }
 
 		[Required]
-		[StringLength(maximumLength:3000,MinimumLength = 50, ErrorMessage ="Opis pripreme se mora sastojati od najmanje 50 i" +
-			"najviše 3000 karaktera!")]
+		
 		public string opisPripreme { get; set; }
 
         #endregion

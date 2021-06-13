@@ -18,8 +18,10 @@
                         <span asp-validation-for="kategorija" class="text-danger"></span>
                     </div>
                     <div class="form-group">
-                        <label style="color:antiquewhite" >Opišite problem detaljnije: </label>
-                        <input type="text" id="sadrzaj" name="sadrzaj" /><br />
+                        <label style="color:antiquewhite" >Opišite problem detaljnije: </label> <br />
+                        
+                        <textarea id="sadrzaj" name="sadrzaj" rows="10" style="width:300px">
+                        </textarea>
                         <span asp-validation-for="sadrzaj" class="text-danger"></span>
                     </div>
                     <div class="form-group">

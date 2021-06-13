@@ -16,8 +16,9 @@
                     <div asp-validation-summary="ModelOnly" class="text-danger"></div>
                     <div class="form-group">
                         <label style="color:antiquewhite" asp-for="Input.KratkaBiografija"></label>
-                        <input asp-for="Input.KratkaBiografija" class="form-control" />
-                        <span  asp-validation-for="Input.KratkaBiografija" class="text-danger"></span>
+                        <textarea asp-for="Input.KratkaBiografija" id="Input.KratkaBiografija" name="Input.KratkaBiografija" rows="5" style="width:300px"></textarea>
+                        
+                        <span asp-validation-for="Input.KratkaBiografija" class="text-danger"></span>
                     </div>
                     <div class="form-group">
                         <label style="color:antiquewhite" asp-for="Input.BrojTelefona"></label>

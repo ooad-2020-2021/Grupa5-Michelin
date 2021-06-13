@@ -69,8 +69,12 @@ namespace Michelin.Controllers
         public async Task<IActionResult> Create(IFormFile file,IFormCollection form,[Bind("naziv,vrijemePripreme,nacionalnoJelo,vrstaJela,vegansko")] Recept recept)
         {
 
-            if (ModelState.IsValid)
+            //if (ModelState.IsValid)
             {
+                if(file==null)
+                {
+                    return View();
+                }
                 using var image = Image.Load(file.OpenReadStream());
                 image.Mutate(x => x.Resize(50, 50));
                 _unitOfWork.UploadImage(file);
@@ -93,9 +97,9 @@ namespace Michelin.Controllers
                 _context.Add(recept.nacinPripreme);
                 _context.Add(recept);
                 await _context.SaveChangesAsync();
-                return RedirectToAction("SviRecepti");
+                return RedirectToAction("SviRecepti","Home");
             }
-            return RedirectToAction("SviRecepti");
+            return RedirectToAction("SviRecepti","Home");
         }
 
         // GET: Recepts/Edit/5

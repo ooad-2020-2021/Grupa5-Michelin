@@ -25,19 +25,22 @@ namespace Michelin.Controllers
 
         public async Task<IActionResult> SviRecepti()
         {
+            ViewBag.korisnici = await _context.Korisnik.ToListAsync();
             return View(await _context.Recept.ToListAsync());
         }
 
         public async Task<IActionResult> NajboljiRecepti()
         {
-           /* azurirajNajboljeRecepte();
-            var najboljiRecepti = await _context.NajboljiRecept.ToListAsync();
-            List<Recept> recepti = new List<Recept>();
-            foreach(NajboljiRecept r in najboljiRecepti)
-            {
-                recepti.Add(r.recept);
-            }*/
+            /* azurirajNajboljeRecepte();
+             var najboljiRecepti = await _context.NajboljiRecept.ToListAsync();
+             List<Recept> recepti = new List<Recept>();
+             foreach(NajboljiRecept r in najboljiRecepti)
+             {
+                 recepti.Add(r.recept);
+             }*/
 
+
+            ViewBag.korisnici = await _context.Korisnik.ToListAsync();
             return View(Recept.dajDesetNajboljih(await _context.Recept.ToListAsync(), await _context.Ocjena.ToListAsync())); 
         }
 
