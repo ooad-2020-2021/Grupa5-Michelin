@@ -84,7 +84,7 @@ namespace Michelin.Areas.Identity.Pages.Account.Manage
 
         public async Task<IActionResult> OnPostAsync(IFormFile file)
         {
-            _unitOfWork.UploadImage(file);
+            
             var user = await _userManager.GetUserAsync(User);
             var phoneNumber = await _userManager.GetPhoneNumberAsync(user);
            
@@ -120,9 +120,12 @@ namespace Michelin.Areas.Identity.Pages.Account.Manage
                 await _userManager.UpdateAsync(user);
             }
 
-            _unitOfWork.UploadImage(file);
-            user.profilnaSlika = file.FileName;
-            await _userManager.UpdateAsync(user);
+            if (file != null)
+            {
+                _unitOfWork.UploadImage(file);
+                user.profilnaSlika = file.FileName;
+                await _userManager.UpdateAsync(user);
+            }
 
             if (Input.KratkaBiografija!= kratkaBiografija)
             {

@@ -57,7 +57,7 @@ namespace Michelin.Controllers
         {
             var id = User.FindFirst(ClaimTypes.NameIdentifier);
             Korisnik korisnik = await _userManager.GetUserAsync(User);
-            
+            ViewBag.recepti = await _context.Recept.ToListAsync();
             return View(korisnik);
         }
 
