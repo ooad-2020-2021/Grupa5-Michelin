@@ -109,9 +109,18 @@ namespace Michelin.Models
 
 		public void ukloniOmiljeniRecept(Recept recept)
         {
-			//pronalazi se u string listaOmiljenihRecepata odgovarajuci kljuc(id) recepta
-			//te se uklanja iz stringa
-        }
+			string[] ids = omiljeniRecepti.Split(" ");
+			string novi = "";
+			foreach (string id in ids)
+			{
+				if (id == recept.id) continue;
+				else
+                {
+					novi += " " + id;
+                }
+			}
+			omiljeniRecepti = novi;
+		}
 
 		public void ukljuciObavijesti()
         {
