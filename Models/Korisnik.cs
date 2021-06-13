@@ -4,6 +4,12 @@ using System.ComponentModel.DataAnnotations.Schema;
 using System.ComponentModel.DataAnnotations;
 using Microsoft.AspNetCore.Identity;
 using Michelin.Interfaces;
+using Twilio;
+using Twilio.Rest.Api.V2010.Account;
+using MailKit.Net.Smtp;
+using MimeKit;
+using MailKit.Security;
+using Michelin.Util;
 
 namespace Michelin.Models
 {
@@ -91,24 +97,58 @@ namespace Michelin.Models
 
 		public void ukljuciObavijesti()
         {
-			//dodaje korisnika u pretplatnik repozitorij
-        }
+			PretplatnikRepozitorij.getInstance().dodajPretplatnika(this);
+		}
 
 		public void iskljuciObavijesti()
         {
-			//uklanja korisnika iz pretplatnik repozitorija
-        }
+			PretplatnikRepozitorij.getInstance().ukloniPretplatnika(this);
+		}
 
 		public void posaljiMail()
         {
-			//salje korisniku mail sa sadrzajem obavijesti
-			//eventualno se treba dodati da ova metoda prima parametar s tekstom obavijesti
-        }
+			MimeMessage message = new MimeMessage();
+
+			MailboxAddress from = new MailboxAddress("Michelin",
+			"admin@example.com");
+			message.From.Add(from);
+
+			MailboxAddress to = new MailboxAddress(korisnickoIme,
+			Email);
+			message.To.Add(to);
+
+			message.Subject = "Michelin: Novost";
+			BodyBuilder bodyBuilder = new BodyBuilder();
+			bodyBuilder.HtmlBody = "<h1>Ažurirana je kategorija najboljih recepata!</h1>";
+			bodyBuilder.TextBody = "Ažurirana je kategorija najboljih recepata!";
+			message.Body = bodyBuilder.ToMessageBody();
+
+			SmtpClient client = new SmtpClient();
+			client.Connect("smtp.ethereal.email", 587, SecureSocketOptions.StartTls);
+			client.Authenticate("lemuel.rippin@ethereal.email", "GN2Nf74YUpwNg2tANr");
+			client.Send(message);
+			client.Disconnect(true);
+			client.Dispose();
+		}
 
 		public void posaljiPoruku()
         {
-			//salje korisniku SMS poruku sa sadrzajem obavijesti
-			//eventualno se treba dodati da ova metoda prima parametar s tekstom obavijesti
+			if (brojMobitela != null)
+			{
+				string broj = brojMobitela.Substring(1);
+				string accountSid = Environment.GetEnvironmentVariable("AC641892399a6fc5dd07a4c18fdad2eb31");
+				string authToken = Environment.GetEnvironmentVariable("2a4bec242c39c2896de7a28909463d73");
+
+				TwilioClient.Init(accountSid, authToken);
+
+				var message = MessageResource.Create(
+					body: "Michelin: Kategorija s najboljim receptima je ažurirana!",
+					from: new Twilio.Types.PhoneNumber("+16158007624"),
+					to: new Twilio.Types.PhoneNumber("+387" + broj)
+				);
+
+				Console.WriteLine(message.Sid);
+			}
 		}
 
         #endregion

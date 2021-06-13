@@ -55,7 +55,7 @@ namespace Michelin.Models
         [Required]
 		[StringLength(maximumLength:30,MinimumLength =3,
 			ErrorMessage ="Naziv recepta mora sadržavati minimalno 3, a najviše 30 karaktera!")]
-		[RegularExpression(@"[a-z|A-Z| |0-9]*",ErrorMessage ="Naziv recepta smije sadržavati samo slova, brojeve i razmake!")]
+		
 		public string naziv { get; set; }
 
 		[Required]

@@ -9,35 +9,37 @@ namespace Michelin.Util
     public class PretplatnikRepozitorij
     {
         #region Prototypes
-        public List<IPretplatnik> pretplatnici { get; set; }
-        public PretplatnikRepozitorij repozitorij { get; set; }
+        public static List<IPretplatnik> pretplatnici { get; set; } = new List<IPretplatnik>();
+        public static PretplatnikRepozitorij repozitorij { get; set; } = new PretplatnikRepozitorij();
 
-        #endregion
-
-        #region Constructor
-        private PretplatnikRepozitorij()
-        {
-            repozitorij = new PretplatnikRepozitorij();
-        }
+        
         #endregion
 
         #region Metode
-        public PretplatnikRepozitorij getInstance()
+        public static PretplatnikRepozitorij getInstance()
         {
+            if (repozitorij == null)
+                repozitorij = new PretplatnikRepozitorij();
             return repozitorij;
         }
         public void dodajPretplatnika(IPretplatnik pretplatnik)
         {
-            //dodaje pretplatnika u listu
+            if (!(pretplatnici.Contains(pretplatnik)))
+            pretplatnici.Add(pretplatnik);
         }
         public void ukloniPretplatnika(IPretplatnik pretplatnik)
         {
-            //uklanja pretplatnika iz liste
+            if (pretplatnici.Contains(pretplatnik))
+                pretplatnici.Remove(pretplatnik);
         }
 
         public void obavijestiPretplatnike()
         {
-            //za svakog pretplatnika u listi poziva posaljiMail i posaljiPoruku
+            foreach(IPretplatnik p in pretplatnici)
+            {
+                p.posaljiMail();
+                //p.posaljiPoruku();
+            }
         }
         #endregion
     }

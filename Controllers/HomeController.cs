@@ -1,5 +1,6 @@
 ﻿using Michelin.Data;
 using Michelin.Models;
+using Michelin.Util;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
@@ -29,10 +30,47 @@ namespace Michelin.Controllers
 
         public async Task<IActionResult> NajboljiRecepti()
         {
+           /* azurirajNajboljeRecepte();
+            var najboljiRecepti = await _context.NajboljiRecept.ToListAsync();
+            List<Recept> recepti = new List<Recept>();
+            foreach(NajboljiRecept r in najboljiRecepti)
+            {
+                recepti.Add(r.recept);
+            }*/
 
-            return View(Recept.dajDesetNajboljih(await _context.Recept.ToListAsync(),await _context.Ocjena.ToListAsync()));
+            return View(Recept.dajDesetNajboljih(await _context.Recept.ToListAsync(), await _context.Ocjena.ToListAsync())); 
         }
 
+
+        public async void azurirajNajboljeRecepte()
+        {
+            var recepti = Recept.dajDesetNajboljih(await _context.Recept.ToListAsync(), await _context.Ocjena.ToListAsync());
+            var najbolji = await _context.NajboljiRecept.ToListAsync();
+
+            if (najbolji.Count<10)
+            {
+                foreach(Recept r in recepti)
+                {
+                    var novi = new NajboljiRecept();
+                    novi.id = r.id;
+                    novi.recept = r;
+
+                    _context.SaveChanges();
+                }
+            } else
+            {
+                int i = 0;
+                foreach(NajboljiRecept r in najbolji)
+                {
+                    r.recept = recepti[i];
+                    _context.Update(r);
+                    i++;
+                }
+            }
+
+            //await _context.SaveChangesAsync();
+            PretplatnikRepozitorij.getInstance().obavijestiPretplatnike();
+        }
 
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]

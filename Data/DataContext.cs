@@ -4,7 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 using Michelin.Models;
-
+using Michelin.Util;
 
 namespace Michelin.Data
 {
@@ -21,6 +21,7 @@ namespace Michelin.Data
         public DbSet<Michelin.Models.Ocjena> Ocjena { get; set; }
         public DbSet<Michelin.Models.NacinPripreme> NacinPripreme { get; set; }
         public DbSet<Michelin.Models.ZahtjevZaPomoc> ZahtjevZaPomoc { get; set; }
+        public DbSet<Michelin.Util.NajboljiRecept> NajboljiRecept { get; set; }
 
         protected override void OnModelCreating(ModelBuilder builder)
         {
@@ -32,7 +33,7 @@ namespace Michelin.Data
             builder.Entity<Ocjena>().ToTable("Ocjena");
             builder.Entity<NacinPripreme>().ToTable("Nacin Pripreme");
             builder.Entity<ZahtjevZaPomoc>().ToTable("ZahtjevZaPomoc");
-
+            builder.Entity<NajboljiRecept>().ToTable("NajboljiRecepti");
         }
     }
 }

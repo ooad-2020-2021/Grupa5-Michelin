@@ -9,6 +9,7 @@ using Michelin.Data;
 using Michelin.Models;
 using Microsoft.AspNetCore.Identity;
 using System.Security.Claims;
+using Michelin.Util;
 
 namespace Michelin.Controllers
 {
@@ -35,6 +36,10 @@ namespace Michelin.Controllers
             return View();
         }
 
+        public IActionResult Obavijesti()
+        {
+            return View();
+        }
         public IActionResult Pomoc()
         {
             return View();
@@ -166,6 +171,25 @@ namespace Michelin.Controllers
             return _context.Korisnik.Any(e => e.korisnickoIme == id);
         }
 
-        
+        public async Task<IActionResult> ukljuciObavijesti()
+        {
+            var id = User.FindFirst(ClaimTypes.NameIdentifier);
+            Korisnik korisnik = await _userManager.GetUserAsync(User);
+            korisnik.ukljuciObavijesti();
+
+            return RedirectToAction("Obavijesti", "Korisnik");
+            
+        }
+
+        public async Task<IActionResult> iskljuciObavijesti()
+        {
+            var id = User.FindFirst(ClaimTypes.NameIdentifier);
+            Korisnik korisnik = await _userManager.GetUserAsync(User);
+            korisnik.iskljuciObavijesti();
+            return RedirectToAction("Obavijesti", "Korisnik");
+            
+        }
+
+
     }
 }

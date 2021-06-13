@@ -7,48 +7,15 @@
 
 <body class="backgroundimg">
     <div class="container">
-        <div>
-
-            <hr />
-            <dl class="row">
-                <dt class="col-sm-2">
-                    @Html.DisplayNameFor(model => model.naziv)
-                </dt>
-                <dd class="col-sm-10">
-                    @Html.DisplayFor(model => model.naziv)
-                </dd>
-                <dt class="col-sm-2">
-                    @Html.DisplayNameFor(model => model.vrijemePripreme)
-                </dt>
-                <dd class="col-sm-10">
-                    @Html.DisplayFor(model => model.vrijemePripreme)
-                </dd>
-                <dt class="col-sm-2">
-                    @Html.DisplayNameFor(model => model.nacionalnoJelo)
-                </dt>
-                <dd class="col-sm-10">
-                    @Html.DisplayFor(model => model.nacionalnoJelo)
-                </dd>
-                <dt class="col-sm-2">
-                    @Html.DisplayNameFor(model => model.vrstaJela)
-                </dt>
-                <dd class="col-sm-10">
-                    @Html.DisplayFor(model => model.vrstaJela)
-                </dd>
-                <dt class="col-sm-2">
-                    @Html.DisplayNameFor(model => model.vegansko)
-                </dt>
-                <dd class="col-sm-10">
-                    @Html.DisplayFor(model => model.vegansko)
-                </dd>
-                <dt class="col-sm-2">
-                    @Html.DisplayNameFor(model => model.datum)
-                </dt>
-                <dd class="col-sm-10">
-                    @Html.DisplayFor(model => model.datum)
-                </dd>
-            </dl>
-        </div>
+        <img align="left" src="/uploads/@Model.slika" class="figure-img" height="200"  /> 
+        
+        
+            <h3 style="color:antiquewhite">
+                 @Html.DisplayFor(modelItem => @Model.naziv)
+            </h3>
+            <label align="bottom" style="color:antiquewhite">@Html.DisplayFor(modelItem => @Model.nacionalnoJelo) </label> <br />
+           
+        
     </div>
 </body>
 
