@@ -33,25 +33,26 @@ namespace Michelin.Controllers
             return View(await _context.Korisnik.ToListAsync());
         }
 
-        [Authorize]
+        [Authorize(Roles ="Korisnik")]
         public IActionResult Deaktivacija()
         {
             return View();
         }
 
-        [Authorize]
+        
+        [Authorize(Roles = "Korisnik")]
         public IActionResult Obavijesti()
         {
             return View();
         }
 
-        [Authorize]
+        [Authorize(Roles = "Korisnik")]
         public IActionResult Pomoc()
         {
             return View();
         }
         // GET: Korisnik/Details/5
-        [Authorize]
+        [Authorize(Roles = "Korisnik")]
         public async Task<IActionResult> Profil()
         {
             var id = User.FindFirst(ClaimTypes.NameIdentifier);

@@ -34,6 +34,7 @@ namespace Michelin
                 options.UseMySQL(
                     Configuration.GetConnectionString("ApplicationDbContext")));
             services.AddIdentity<Korisnik, IdentityRole>().AddDefaultTokenProviders().AddDefaultUI()
+                .AddRoles<IdentityRole>()
                 .AddEntityFrameworkStores<ApplicationDbContext>();
 
             services.AddTransient<IUnitOfWork, UnitOfWork>();

@@ -22,7 +22,7 @@
                         <li class="nav-item">
                             <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="SviRecepti">Home</a>
                         </li>
-                        @if (User.Identity.IsAuthenticated)
+                        @if (User.IsInRole("Korisnik"))
                         {
                             <li class="nav-item">
                                 <a class="nav-link text-dark" asp-area="" asp-controller="Korisnik" asp-action="Profil">Profil</a>
@@ -39,7 +39,13 @@
                             <li class="nav-item">
                                 <a class="nav-link text-dark" asp-area="" asp-controller="Korisnik" asp-action="Deaktivacija">Deaktiviraj račun</a>
                             </li>
-}
+                        }
+                        @if (User.IsInRole("Administrator"))
+                        {
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" asp-area="" asp-controller="ZahtjevZaPomoc" asp-action="Index">Zahtjevi za pomoć</a>
+                            </li>
+                        }
 
                     </ul>
                 </div>

@@ -54,7 +54,7 @@ namespace Michelin.Controllers
         }
 
         // GET: Recepts/Create
-        [Authorize]
+        [Authorize(Roles = "Korisnik")]
         public IActionResult Create()
         {
             return View();
@@ -65,7 +65,7 @@ namespace Michelin.Controllers
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        [Authorize]
+        [Authorize(Roles = "Korisnik")]
         public async Task<IActionResult> Create(IFormFile file,IFormCollection form,[Bind("naziv,vrijemePripreme,nacionalnoJelo,vrstaJela,vegansko")] Recept recept)
         {
 
@@ -99,57 +99,58 @@ namespace Michelin.Controllers
         }
 
         // GET: Recepts/Edit/5
-       /* public async Task<IActionResult> Edit(string id)
-        {
-            if (id == null)
-            {
-                return NotFound();
-            }
+        /* public async Task<IActionResult> Edit(string id)
+         {
+             if (id == null)
+             {
+                 return NotFound();
+             }
 
-            var recept = await _context.Recept.FindAsync(id);
-            if (recept == null)
-            {
-                return NotFound();
-            }
-            return View(recept);
-        }*/
+             var recept = await _context.Recept.FindAsync(id);
+             if (recept == null)
+             {
+                 return NotFound();
+             }
+             return View(recept);
+         }*/
 
         // POST: Recepts/Edit/5
         // To protect from overposting attacks, enable the specific properties you want to bind to, for 
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
-       /* [HttpPost]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(string id, [Bind("id,naziv,vrijemePripreme,nacionalnoJelo,vrstaJela,vegansko,datum")] Recept recept)
-        {
-            if (id != recept.id)
-            {
-                return NotFound();
-            }
+        /* [HttpPost]
+         [ValidateAntiForgeryToken]
+         public async Task<IActionResult> Edit(string id, [Bind("id,naziv,vrijemePripreme,nacionalnoJelo,vrstaJela,vegansko,datum")] Recept recept)
+         {
+             if (id != recept.id)
+             {
+                 return NotFound();
+             }
 
-            if (ModelState.IsValid)
-            {
-                try
-                {
-                    _context.Update(recept);
-                    await _context.SaveChangesAsync();
-                }
-                catch (DbUpdateConcurrencyException)
-                {
-                    if (!ReceptExists(recept.id))
-                    {
-                        return NotFound();
-                    }
-                    else
-                    {
-                        throw;
-                    }
-                }
-                return RedirectToAction(nameof(Index));
-            }
-            return View(recept);
-        }
-
+             if (ModelState.IsValid)
+             {
+                 try
+                 {
+                     _context.Update(recept);
+                     await _context.SaveChangesAsync();
+                 }
+                 catch (DbUpdateConcurrencyException)
+                 {
+                     if (!ReceptExists(recept.id))
+                     {
+                         return NotFound();
+                     }
+                     else
+                     {
+                         throw;
+                     }
+                 }
+                 return RedirectToAction(nameof(Index));
+             }
+             return View(recept);
+         }
+        */
         // GET: Recepts/Delete/5
+        [Authorize(Roles = "Administrator")]
         public async Task<IActionResult> Delete(string id)
         {
             if (id == null)
@@ -170,13 +171,14 @@ namespace Michelin.Controllers
         // POST: Recepts/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Administrator")]
         public async Task<IActionResult> DeleteConfirmed(string id)
         {
             var recept = await _context.Recept.FindAsync(id);
             _context.Recept.Remove(recept);
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
-        }*/
+        }
 
         private bool ReceptExists(string id)
         {
@@ -198,7 +200,7 @@ namespace Michelin.Controllers
         }
 
         [Route("DodajSastojke/")]
-        [Authorize]
+        [Authorize(Roles = "Korisnik")]
         public async Task<IActionResult> DodajSastojke(string id)
         {
             return View();
@@ -206,7 +208,7 @@ namespace Michelin.Controllers
         
         [HttpPost]
         [Route("DodajSastojke/")]
-        [Authorize]
+        [Authorize(Roles = "Korisnik")]
         public async Task<IActionResult>  DodajSastojke(IFormCollection form)
         {
             string naziv = form["nazivSastojka"].ToString();

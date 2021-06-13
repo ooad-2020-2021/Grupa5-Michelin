@@ -27,7 +27,7 @@ namespace Michelin.Controllers
         }
 
         // GET: ZahtjeviZaPomoc
-        [Authorize]
+        [Authorize(Roles = "Administrator")]
         public async Task<IActionResult> Index()
         {
             var zahtjevi = await _context.ZahtjevZaPomoc.ToListAsync();
@@ -55,6 +55,7 @@ namespace Michelin.Controllers
 
         // GET: ZahtjeviZaPomoc/Details/5
         [Authorize]
+        [Authorize(Roles = "Administrator")]
         public async Task<IActionResult> Details(string id)
         {
             if (id == null)
@@ -74,6 +75,7 @@ namespace Michelin.Controllers
 
         // GET: ZahtjeviZaPomoc/Create
         [Authorize]
+        [Authorize(Roles = "Korisnik")]
         public IActionResult Create()
         {
             
@@ -104,6 +106,7 @@ namespace Michelin.Controllers
         }
 
         [Authorize]
+        [Authorize(Roles = "Administrator")]
         public async Task<RedirectToActionResult> Obradi(string id)
         {
             var zahtjevZaPomoc = await _context.ZahtjevZaPomoc.FindAsync(id);
@@ -118,6 +121,7 @@ namespace Michelin.Controllers
 
         // GET: ZahtjeviZaPomoc/Delete/5
         [Authorize]
+        [Authorize(Roles = "Administrator")]
         public async Task<IActionResult> Delete(string id)
         {
             if (id == null)
@@ -139,6 +143,7 @@ namespace Michelin.Controllers
         [Authorize]
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Administrator")]
         public async Task<IActionResult> DeleteConfirmed(string id)
         {
             var zahtjevZaPomoc = await _context.ZahtjevZaPomoc.FindAsync(id);
