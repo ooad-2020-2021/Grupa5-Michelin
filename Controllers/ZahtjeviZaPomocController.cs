@@ -11,6 +11,7 @@ using Microsoft.AspNetCore.Identity;
 using System.Security.Claims;
 using Michelin.Interfaces;
 using Michelin.Util;
+using Microsoft.AspNetCore.Authorization;
 
 namespace Michelin.Controllers
 {
@@ -26,6 +27,7 @@ namespace Michelin.Controllers
         }
 
         // GET: ZahtjeviZaPomoc
+        [Authorize]
         public async Task<IActionResult> Index()
         {
             var zahtjevi = await _context.ZahtjevZaPomoc.ToListAsync();
@@ -49,12 +51,10 @@ namespace Michelin.Controllers
             return View(zahtjeviSortirano);
         }
 
-        public async Task<IActionResult> Greska()
-        {
-            return View();
-        }
+
 
         // GET: ZahtjeviZaPomoc/Details/5
+        [Authorize]
         public async Task<IActionResult> Details(string id)
         {
             if (id == null)
@@ -73,6 +73,7 @@ namespace Michelin.Controllers
         }
 
         // GET: ZahtjeviZaPomoc/Create
+        [Authorize]
         public IActionResult Create()
         {
             
@@ -84,6 +85,7 @@ namespace Michelin.Controllers
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize]
         public async Task<IActionResult> Create([Bind("kategorija,sadrzaj")] ZahtjevZaPomoc zahtjevZaPomoc)
         {
             if(ModelState.IsValid)
@@ -101,6 +103,7 @@ namespace Michelin.Controllers
             return RedirectToAction("Greska");
         }
 
+        [Authorize]
         public async Task<RedirectToActionResult> Obradi(string id)
         {
             var zahtjevZaPomoc = await _context.ZahtjevZaPomoc.FindAsync(id);
@@ -110,58 +113,11 @@ namespace Michelin.Controllers
 
             return RedirectToAction("Index");
         }
-        // GET: ZahtjeviZaPomoc/Edit/5
-        public async Task<IActionResult> Edit(string id)
-        {
-            if (id == null)
-            {
-                return NotFound();
-            }
 
-            var zahtjevZaPomoc = await _context.ZahtjevZaPomoc.FindAsync(id);
-            if (zahtjevZaPomoc == null)
-            {
-                return NotFound();
-            }
-            return View(zahtjevZaPomoc);
-        }
 
-        // POST: ZahtjeviZaPomoc/Edit/5
-        // To protect from overposting attacks, enable the specific properties you want to bind to, for 
-        // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(string id, [Bind("id,kategorija,sadrzaj,obradjeno")] ZahtjevZaPomoc zahtjevZaPomoc)
-        {
-            if (id != zahtjevZaPomoc.id)
-            {
-                return NotFound();
-            }
-
-            if (ModelState.IsValid)
-            {
-                try
-                {
-                    _context.Update(zahtjevZaPomoc);
-                    await _context.SaveChangesAsync();
-                }
-                catch (DbUpdateConcurrencyException)
-                {
-                    if (!ZahtjevZaPomocExists(zahtjevZaPomoc.id))
-                    {
-                        return NotFound();
-                    }
-                    else
-                    {
-                        throw;
-                    }
-                }
-                return RedirectToAction(nameof(Index));
-            }
-            return View(zahtjevZaPomoc);
-        }
 
         // GET: ZahtjeviZaPomoc/Delete/5
+        [Authorize]
         public async Task<IActionResult> Delete(string id)
         {
             if (id == null)
@@ -180,6 +136,7 @@ namespace Michelin.Controllers
         }
 
         // POST: ZahtjeviZaPomoc/Delete/5
+        [Authorize]
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(string id)

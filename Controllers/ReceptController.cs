@@ -15,6 +15,7 @@ using Michelin.Util;
 using Michelin.Infrastructure;
 using SixLabors.ImageSharp;
 using SixLabors.ImageSharp.Processing;
+using Microsoft.AspNetCore.Authorization;
 
 namespace Michelin.Controllers
 {
@@ -32,11 +33,7 @@ namespace Michelin.Controllers
             _unitOfWork = unitOfWork;
         }
 
-        // GET: Recepts
-        public async Task<IActionResult> Index()
-        {
-            return View(await _context.Recept.ToListAsync());
-        }
+        
 
         // GET: Recepts/Details/5
         public async Task<IActionResult> Details(string id)
@@ -57,6 +54,7 @@ namespace Michelin.Controllers
         }
 
         // GET: Recepts/Create
+        [Authorize]
         public IActionResult Create()
         {
             return View();
@@ -67,6 +65,7 @@ namespace Michelin.Controllers
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize]
         public async Task<IActionResult> Create(IFormFile file,IFormCollection form,[Bind("naziv,vrijemePripreme,nacionalnoJelo,vrstaJela,vegansko")] Recept recept)
         {
 
@@ -100,7 +99,7 @@ namespace Michelin.Controllers
         }
 
         // GET: Recepts/Edit/5
-        public async Task<IActionResult> Edit(string id)
+       /* public async Task<IActionResult> Edit(string id)
         {
             if (id == null)
             {
@@ -113,12 +112,12 @@ namespace Michelin.Controllers
                 return NotFound();
             }
             return View(recept);
-        }
+        }*/
 
         // POST: Recepts/Edit/5
         // To protect from overposting attacks, enable the specific properties you want to bind to, for 
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
-        [HttpPost]
+       /* [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(string id, [Bind("id,naziv,vrijemePripreme,nacionalnoJelo,vrstaJela,vegansko,datum")] Recept recept)
         {
@@ -177,7 +176,7 @@ namespace Michelin.Controllers
             _context.Recept.Remove(recept);
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
-        }
+        }*/
 
         private bool ReceptExists(string id)
         {
@@ -199,6 +198,7 @@ namespace Michelin.Controllers
         }
 
         [Route("DodajSastojke/")]
+        [Authorize]
         public async Task<IActionResult> DodajSastojke(string id)
         {
             return View();
@@ -206,6 +206,7 @@ namespace Michelin.Controllers
         
         [HttpPost]
         [Route("DodajSastojke/")]
+        [Authorize]
         public async Task<IActionResult>  DodajSastojke(IFormCollection form)
         {
             string naziv = form["nazivSastojka"].ToString();

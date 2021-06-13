@@ -10,6 +10,7 @@ using Michelin.Models;
 using Microsoft.AspNetCore.Identity;
 using System.Security.Claims;
 using Michelin.Util;
+using Microsoft.AspNetCore.Authorization;
 
 namespace Michelin.Controllers
 {
@@ -26,45 +27,41 @@ namespace Michelin.Controllers
         }
 
         // GET: Korisnik
+        [Authorize]
         public async Task<IActionResult> Index()
         {
             return View(await _context.Korisnik.ToListAsync());
         }
 
+        [Authorize]
         public IActionResult Deaktivacija()
         {
             return View();
         }
 
+        [Authorize]
         public IActionResult Obavijesti()
         {
             return View();
         }
+
+        [Authorize]
         public IActionResult Pomoc()
         {
             return View();
         }
         // GET: Korisnik/Details/5
+        [Authorize]
         public async Task<IActionResult> Profil()
         {
             var id = User.FindFirst(ClaimTypes.NameIdentifier);
             Korisnik korisnik = await _userManager.GetUserAsync(User);
-            /*if (id == null)
-            {
-                return NotFound();
-            }
-
-            var korisnik = await _context.Korisnik
-                .FirstOrDefaultAsync(m => m.id == id);
-            if (korisnik == null)
-            {
-                return NotFound();
-            }*/
-
+            
             return View(korisnik);
         }
 
         // GET: Korisnik/Create
+        [Authorize]
         public IActionResult Create()
         {
             return View();
@@ -75,6 +72,7 @@ namespace Michelin.Controllers
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize]
         public async Task<IActionResult> Create([Bind("korisnickoIme,ime,prezime,emailAdresa,brojMobitela,kratkaBiografija,brojKreditneKartice,datumAktivacije,datumDeaktivacije,aktivan,omiljeniRecepti")] Korisnik korisnik)
         {
             if (ModelState.IsValid)
@@ -87,6 +85,7 @@ namespace Michelin.Controllers
         }
 
         // GET: Korisnik/Edit/5
+        [Authorize]
         public async Task<IActionResult> Edit(string id)
         {
             if (id == null)
@@ -107,6 +106,7 @@ namespace Michelin.Controllers
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize]
         public async Task<IActionResult> Edit(string id, [Bind("korisnickoIme,ime,prezime,emailAdresa,brojMobitela,kratkaBiografija,brojKreditneKartice,datumAktivacije,datumDeaktivacije,aktivan,omiljeniRecepti")] Korisnik korisnik)
         {
             if (id != korisnik.korisnickoIme)
@@ -138,6 +138,7 @@ namespace Michelin.Controllers
         }
 
         // GET: Korisnik/Delete/5
+        [Authorize]
         public async Task<IActionResult> Delete(string id)
         {
             if (id == null)
@@ -158,6 +159,7 @@ namespace Michelin.Controllers
         // POST: Korisnik/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
+        [Authorize]
         public async Task<IActionResult> DeleteConfirmed(string id)
         {
             var korisnik = await _context.Korisnik.FindAsync(id);

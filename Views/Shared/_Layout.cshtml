@@ -22,20 +22,24 @@
                         <li class="nav-item">
                             <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="SviRecepti">Home</a>
                         </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Korisnik" asp-action="Profil">Profil</a>
-                        </li>
-                        <a class="nav-link text-dark" asp-area="" asp-controller="Recept" asp-action="Create">Dodaj recept</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="Identity" asp-page="/Account/Manage/Index" title="Uredi Profil">Uredi profil</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Korisnik" asp-action="Pomoc">Pomoć</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Korisnik" asp-action="Deaktivacija">Deaktiviraj račun</a>
-                        </li>
+                        @if (User.Identity.IsAuthenticated)
+                        {
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" asp-area="" asp-controller="Korisnik" asp-action="Profil">Profil</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" asp-area="" asp-controller="Recept" asp-action="Create">Dodaj recept</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" asp-area="Identity" asp-page="/Account/Manage/Index" title="Uredi Profil">Uredi profil</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" asp-area="" asp-controller="Korisnik" asp-action="Pomoc">Pomoć</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" asp-area="" asp-controller="Korisnik" asp-action="Deaktivacija">Deaktiviraj račun</a>
+                            </li>
+}
 
                     </ul>
                 </div>
