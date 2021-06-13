@@ -38,7 +38,7 @@ namespace Michelin.Util
             foreach(IPretplatnik p in pretplatnici)
             {
                 p.posaljiMail();
-                //p.posaljiPoruku();
+                p.posaljiPoruku();
             }
         }
         #endregion

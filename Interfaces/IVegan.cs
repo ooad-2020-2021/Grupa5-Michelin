@@ -8,7 +8,7 @@ namespace Michelin.Interfaces
 {
     public interface IVegan
     {
-         List<Recept> dajVeganskaJela();
+         List<Recept> dajVeganskaJela(List<Recept> sviRecepti);
          List<Recept> dajVeganskaJelaFiltrirana(List<VrstaJela> vrstaJela, List<NacionalnoJelo> nacionalnoJelo,
             int vrijemePripreme, List<Recept> receptiZaFiltriranje);
     }

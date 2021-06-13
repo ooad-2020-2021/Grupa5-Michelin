@@ -11,17 +11,11 @@ namespace Michelin.Util
     {
 
         #region Prototypes
-        public List<ISastojak> listaSastojaka { get; set; }
-        public static BazaSastojaka bazaSastojaka { get; set; }
+        public static List<ISastojak> listaSastojaka { get; set; }
+        public static BazaSastojaka bazaSastojaka { get; set; } = new BazaSastojaka();
         #endregion
 
-        #region Constructor
-        private BazaSastojaka()
-        {
-            bazaSastojaka = new BazaSastojaka();
-            //eventualno dohvatiti sve sastojke iz baze i eliminisati duple (s istim nazivom i mjernom jedinicom)
-        }
-        #endregion
+       
 
         #region Metode
         public static BazaSastojaka getInstance()

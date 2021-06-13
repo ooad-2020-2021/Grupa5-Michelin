@@ -9,18 +9,20 @@ namespace Michelin.Util
 {
     public class ReceptAdapter : Recept, IVegan
     {
-        public List<Recept> dajVeganskaJela()
+        public List<Recept> dajVeganskaJela(List<Recept> sviRecepti) 
         {
-            //vraca sve recepte koji su veganski
-            throw new NotImplementedException();
+            sviRecepti.RemoveAll(r => r.vegansko != true);
+            return sviRecepti;
         }
+
 
         public List<Recept> dajVeganskaJelaFiltrirana(List<VrstaJela> vrstaJela, List<NacionalnoJelo> nacionalnoJelo, int vrijemePripreme, List<Recept> receptiZaFiltriranje)
         {
 
             //vraca proslijedjenu listu recepata isfiltriranu na osnovu proslijedjenih parametara
             //i takvu da sadrzi iskljucivo veganske recepte
-            throw new NotImplementedException();
+            receptiZaFiltriranje.RemoveAll(r => r.vegansko != true);
+            return Recept.filtrirajRecepte(receptiZaFiltriranje,vrstaJela, nacionalnoJelo, vrijemePripreme);
         }
     }
 }
