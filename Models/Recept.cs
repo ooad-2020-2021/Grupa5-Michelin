@@ -55,30 +55,37 @@ namespace Michelin.Models
         [Required]
 		[StringLength(maximumLength:30,MinimumLength =3,
 			ErrorMessage ="Naziv recepta mora sadržavati minimalno 3, a najviše 30 karaktera!")]
-		
+		[Display(Name ="Naziv")]
 		public string naziv { get; set; }
 
 		[Required]
+		[Display(Name = "Vrijeme pripreme")]
 		public int vrijemePripreme { get; set; }
 
 		[Required]
 		[EnumDataType(typeof(NacionalnoJelo))]
+		[Display(Name = "Kuhinja")]
 		public NacionalnoJelo nacionalnoJelo { get; set; }
 
 		[Required]
 		[EnumDataType(typeof(VrstaJela))]
+		[Display(Name = "Vrsta jela")]
 		public VrstaJela vrstaJela { get; set; }
 
 		[Required]
+		[Display(Name = "Vegansko")]
 		public Boolean vegansko { get; set; }
 
 		[Required]
+		[Display(Name = "Objavio")]
 		public Korisnik autor { get; set; }
 
 		[Required]
+		[Display(Name = "Nacin pripreme")]
 		public NacinPripreme nacinPripreme { get; set; }
 
 		[DataType(DataType.Date)]
+		[Display(Name = "Datum objave")]
 		public DateTime datum { get; set; }
 
 		public string slika { get; set; }
@@ -156,6 +163,7 @@ namespace Michelin.Models
         {
 			recepti.Sort((x, y) => x.izracunajOcjenu(ocjene).CompareTo(y.izracunajOcjenu(ocjene)));
 
+            if (recepti.Count > 10) 
 			recepti.RemoveRange(9, recepti.Count-10);
 			return recepti;
 		}

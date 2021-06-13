@@ -177,7 +177,7 @@ namespace Michelin.Controllers
             var recept = await _context.Recept.FindAsync(id);
             _context.Recept.Remove(recept);
             await _context.SaveChangesAsync();
-            return RedirectToAction(nameof(Index));
+            return RedirectToAction("SviRecepti","Home");
         }
 
         private bool ReceptExists(string id)
