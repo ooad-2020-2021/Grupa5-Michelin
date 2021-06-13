@@ -145,18 +145,42 @@ namespace Michelin.Models
 			return listaZaFiltriranje;
         }
 
-		public static List<Recept> dajReceptePoNazivu(String naziv)
+		public static List<Recept> dajReceptePoNazivu(List<Recept> recepti, String naziv)
         {
 			//vraca sve recepte koji u nazivu sadrze proslijedjeni string
-
-			return new List<Recept>();
+			List<Recept> receptiPoNazivu = new List<Recept>();
+			foreach (Recept r in recepti)
+            {
+				if (r.naziv.Equals(naziv))
+                {
+					receptiPoNazivu.Add(r);
+                }
+            }
+			return receptiPoNazivu;
         }
 
-		public static List<Recept> dajRecepteBezSastojaka(List<Sastojak> sastojci)
+		public static List<Recept> dajRecepteBezSastojaka(List<Recept> recepti, List<Sastojak> sastojci)
         {
 			//vraca sve recepte koji ne sadrze niti jedan od sastojaka u proslijedjenoj listi
 			//poredjenje sastojaka se treba vrsiti po nazivu
-			return new List<Recept>();
+			List<Recept> receptiBezSastojaka = new List<Recept>();
+			foreach (Recept r in recepti)
+            {
+				Boolean postojiSastojak = false;
+				foreach (String idSastojka in r.nacinPripreme.listaSastojaka.Split(" "))
+                {
+					foreach (Sastojak s in sastojci)
+                    {
+						if (idSastojka.Equals(s.id))
+                        {
+							postojiSastojak = true;
+                        }
+                    }
+                }
+				if (!postojiSastojak) receptiBezSastojaka.Add(r);
+
+            }
+			return receptiBezSastojaka;
 		}
 
 		public static List<Recept> dajDesetNajboljih(List<Recept> recepti,List<Ocjena> ocjene)
