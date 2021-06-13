@@ -83,6 +83,16 @@ namespace Michelin.Models
 			return omiljeni;
         }
 
+		public List<Recept> dajKorisnikoveRecepte(List<Recept> sviRecepti)
+        {
+			List<Recept> recepti = new List<Recept>();
+			foreach (Recept r in sviRecepti)
+            {
+				if (r.autor == this)
+					recepti.Add(r);
+            }
+			return recepti;
+        }
 		public void dodajOmiljeniRecept(Recept recept)
         {
 			//dodavanje recepta u listu omiljenih

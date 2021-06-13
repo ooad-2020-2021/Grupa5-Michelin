@@ -1,4 +1,4 @@
-﻿
+﻿@model Michelin.Models.Korisnik
 @{
     ViewData["Title"] = "Profil";
 
@@ -9,14 +9,35 @@
         <h4 style="color:antiquewhite">Saznajte nešto više o autoru recepta</h4>
         <div class="row">
             <div class="col-md-4" style="background-color: antiquewhite">
-                </br>   
-                <img src="/uploads/profil.jpg" class="figure-img" height="250" />
+                </br>
+                <img src="/uploads/@Model.profilnaSlika" class="figure-img" height="250" />
+                <h4>@Model.korisnickoIme</h4>
             </div>
             <div class="col-md-8" style="background-color: antiquewhite">
                 </br>
-                <div style="width:500px;height:250px;border:2px solid #000;"></div>
+                <div style="width:500px;height:150px;border:2px solid #000;">
+                    <p>
+                        <label style="align-content:space-around"> @Model.kratkaBiografija</label>
+                    </p>
+                </div>
+                <br />
+                <br />
+
+                <h4>Korisnikovi recepti:</h4>
+                
+                    <div class="overflow-auto" style="height:500px;width:700px;border:2px solid #000;">
+                        <table class="table" style="column-width: 80px;background-image: url(https://i.pinimg.com/736x/85/c2/bc/85c2bc5117b432014f3f894845d43323.jpg)">
+                            <tbody>
+                                @foreach (var item in Model.dajKorisnikoveRecepte(ViewBag.recepti))
+                                {
+                                    <partial name="_ReceptiPartial" model="item" />
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+               
             </div>
         </div>
-        
+
     </div>
 </body>
