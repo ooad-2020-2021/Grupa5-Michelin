@@ -27,8 +27,8 @@ namespace Michelin.Controllers
         }
 
         // GET: Korisnik
-        [Authorize]
-        public async Task<IActionResult> Index()
+        [Authorize(Roles ="Administrator")]
+        public async Task<IActionResult> NadjiKorisnika()
         {
             return View(await _context.Korisnik.ToListAsync());
         }
@@ -179,8 +179,19 @@ namespace Michelin.Controllers
             var korisnik = await _context.Korisnik.FindAsync(id);
             _context.Korisnik.Remove(korisnik);
             await _context.SaveChangesAsync();
-            return RedirectToAction(nameof(Index));
+            return RedirectToAction("NadjiKorisnika");
         }
+
+        [Authorize(Roles ="Administrator")]
+        public async Task<IActionResult> Obrisi(string id)
+        {
+            var korisnik = await _context.Korisnik.FindAsync(id);
+            _context.Korisnik.Remove(korisnik);
+            await _context.SaveChangesAsync();
+            return RedirectToAction("NadjiKorisnika");
+
+        }
+
 
         private bool KorisnikExists(string id)
         {
